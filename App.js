@@ -35,8 +35,7 @@ const styles = StyleSheet.create({
     top: 10,
     width: '90%',
   },
-  input: {
-    elevation: 100,
+  bar: {
     backgroundColor: '#f7f7f7',
     color: '#555',
     height: 40,
@@ -44,7 +43,17 @@ const styles = StyleSheet.create({
     margin: 12,
     borderWidth: 1,
     borderRadius: 5000,
-    padding: 10,
+    padding: 1,
+    elevation: 100,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  input: {
+    width: '85%',
+    marginLeft: 10,
+    marginRight: 5,
+    borderRightWidth: 1,
+    borderColor: '#999',
   },
 });
 

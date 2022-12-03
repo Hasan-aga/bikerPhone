@@ -1,8 +1,9 @@
 import {StyleSheet, TextInput, View} from 'react-native';
 import React from 'react';
 import {getCoordsFromName} from '../utils/getCoordsFromName';
+import IconButton from './iconButton.component';
 
-export default function Input({style, setcoords, placeholder = 'Type here'}) {
+export default function Input({styles, setcoords, placeholder = 'Type here'}) {
   const [query, setQuery] = React.useState('default');
 
   function onSubmit(input) {
@@ -31,12 +32,15 @@ export default function Input({style, setcoords, placeholder = 'Type here'}) {
   }, [query, setcoords]);
 
   return (
-    <TextInput
-      editable={true}
-      style={style}
-      placeholder={placeholder}
-      onSubmitEditing={onSubmit}
-      placeholderTextColor="#888"
-    />
+    <View style={styles.bar}>
+      <TextInput
+        editable={true}
+        style={styles.input}
+        placeholder={placeholder}
+        onSubmitEditing={onSubmit}
+        placeholderTextColor="#888"
+      />
+      <IconButton />
+    </View>
   );
 }
