@@ -2,9 +2,11 @@ import {StyleSheet, TextInput, View} from 'react-native';
 import React from 'react';
 import {getCoordsFromName} from '../utils/getCoordsFromName';
 import IconButton from './iconButton.component';
+import LocationButton from './locationButton.component';
 
 export default function Input({styles, setcoords, placeholder = 'Type here'}) {
   const [query, setQuery] = React.useState('default');
+  const [queryForIconButton, setqueryForIconButton] = React.useState('default');
 
   function onSubmit(input) {
     console.log(input.nativeEvent.text);
@@ -38,9 +40,18 @@ export default function Input({styles, setcoords, placeholder = 'Type here'}) {
         style={styles.input}
         placeholder={placeholder}
         onSubmitEditing={onSubmit}
+        onChangeText={setqueryForIconButton}
         placeholderTextColor="#888"
       />
-      <IconButton />
+      {/* <LocationButton styles={styles} /> */}
+      <IconButton
+        callback={() => {
+          console.log(`searhing for ${queryForIconButton}`);
+          onSubmit({nativeEvent: {text: queryForIconButton}});
+        }}
+        iconName="search-outline"
+        styles={styles}
+      />
     </View>
   );
 }

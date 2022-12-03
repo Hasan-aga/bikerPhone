@@ -49,11 +49,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   input: {
+    color: '#555',
     width: '85%',
     marginLeft: 10,
     marginRight: 5,
     borderRightWidth: 1,
     borderColor: '#999',
+  },
+  icon: {
+    color: '#555',
   },
 });
 
