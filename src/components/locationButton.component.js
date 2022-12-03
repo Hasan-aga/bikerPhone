@@ -7,6 +7,7 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import React from 'react';
 import Geolocation from 'react-native-geolocation-service';
+import TouchIcon from './touchIcon.component';
 import IconButton from './iconButton.component';
 
 // Function to get permission for location
@@ -70,16 +71,12 @@ export default function LocationButton({styles, setCoords}) {
   };
 
   return (
-    <View style={styles.circleButton}>
-      {isBusy ? (
-        <ActivityIndicator />
-      ) : (
-        <IconButton
-          styles={styles}
-          callback={getLocation}
-          iconName="locate-outline"
-        />
-      )}
-    </View>
+    <IconButton
+      buttonStyle={styles.circleButton}
+      iconStyle={styles.icon}
+      isBusy={isBusy}
+      callback={getLocation}
+      iconName="locate-outline"
+    />
   );
 }

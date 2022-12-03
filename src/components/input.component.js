@@ -1,7 +1,7 @@
 import {ActivityIndicator, StyleSheet, TextInput, View} from 'react-native';
 import React from 'react';
 import {getCoordsFromName} from '../utils/getCoordsFromName';
-import IconButton from './iconButton.component';
+import TouchIcon from './touchIcon.component';
 import LocationButton from './locationButton.component';
 
 export default function Input({styles, setcoords, placeholder = 'Type here'}) {
@@ -50,7 +50,7 @@ export default function Input({styles, setcoords, placeholder = 'Type here'}) {
       {isBusy ? (
         <ActivityIndicator />
       ) : (
-        <IconButton
+        <TouchIcon
           callback={() => {
             console.log(`searhing for ${queryForIconButton}`);
             onSubmit({nativeEvent: {text: queryForIconButton}});

@@ -1,11 +1,21 @@
-import {TouchableHighlight} from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import {ActivityIndicator, View} from 'react-native';
+import TouchIcon from './touchIcon.component';
 import React from 'react';
 
-export default function IconButton({callback, iconName, styles, size = 24}) {
+export default function IconButton({
+  buttonStyle,
+  iconStyle,
+  isBusy,
+  callback,
+  iconName,
+}) {
   return (
-    <TouchableHighlight onPress={callback}>
-      <Ionicons style={styles.icon} name={iconName} size={size} />
-    </TouchableHighlight>
+    <View style={buttonStyle}>
+      {isBusy ? (
+        <ActivityIndicator />
+      ) : (
+        <TouchIcon styles={iconStyle} callback={callback} iconName={iconName} />
+      )}
+    </View>
   );
 }

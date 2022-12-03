@@ -76,6 +76,10 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     borderWidth: 1,
   },
+  halfCircularButton: {
+    ...this.circleButton,
+    backgroundColor: 'red',
+  },
   horizontalContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
