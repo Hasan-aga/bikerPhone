@@ -1,7 +1,8 @@
 import {StyleSheet, View} from 'react-native';
 import React from 'react';
 import MapView from 'react-native-maps';
-const MapContainer = ({coords}) => {
+import {darkMap, lightMap} from '../utils/map.theme';
+const MapContainer = ({coords, useDarkTheme}) => {
   console.log('map coords = ', coords);
   return (
     <View style={styles.container}>
@@ -13,6 +14,7 @@ const MapContainer = ({coords}) => {
           latitudeDelta: 0.15,
           longitudeDelta: 0.15,
         }}
+        customMapStyle={useDarkTheme ? darkMap : lightMap}
       />
     </View>
   );

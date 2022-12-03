@@ -1,4 +1,9 @@
-import {TouchableHighlight, View, PermissionsAndroid} from 'react-native';
+import {
+  TouchableHighlight,
+  View,
+  PermissionsAndroid,
+  ActivityIndicator,
+} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import React from 'react';
 import Geolocation from 'react-native-geolocation-service';
@@ -32,6 +37,7 @@ const requestLocationPermission = async () => {
 
 export default function LocationButton({styles, setCoords}) {
   const [location, setLocation] = React.useState(false);
+  const [isBusy, setisBusy] = React.useState(false);
 
   // function to check permissions and get Location
   const getLocation = () => {
@@ -39,8 +45,10 @@ export default function LocationButton({styles, setCoords}) {
     result.then(res => {
       console.log('res is:', res);
       if (res) {
+        setisBusy(true);
         Geolocation.getCurrentPosition(
           position => {
+            setisBusy(false);
             console.log(position);
             setLocation(position);
             const coords = {
@@ -63,11 +71,15 @@ export default function LocationButton({styles, setCoords}) {
 
   return (
     <View style={styles.circleButton}>
-      <IconButton
-        styles={styles}
-        callback={getLocation}
-        iconName="locate-outline"
-      />
+      {isBusy ? (
+        <ActivityIndicator />
+      ) : (
+        <IconButton
+          styles={styles}
+          callback={getLocation}
+          iconName="locate-outline"
+        />
+      )}
     </View>
   );
 }

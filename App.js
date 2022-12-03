@@ -10,16 +10,23 @@ import React from 'react';
 import {StyleSheet, Text, TextInput, View} from 'react-native';
 import MapContainer from './src/components/mapContainer.component';
 import UI from './src/components/ui.component';
+import useToggle from './src/hooks/toggle.hook';
 
 const App = () => {
   const [coords, setcoords] = React.useState({
     latitude: 52.3727598,
     longitude: 4.8936041,
   });
+  const [darkTheme, toggleTheme] = useToggle(false);
   return (
     <View style={styles.home}>
-      <MapContainer coords={coords} />
-      <UI styles={styles} setcoords={setcoords} />
+      <MapContainer coords={coords} useDarkTheme={darkTheme} />
+      <UI
+        styles={styles}
+        setcoords={setcoords}
+        useDarkTheme={darkTheme}
+        setuseDarkTheme={toggleTheme}
+      />
     </View>
   );
 };
