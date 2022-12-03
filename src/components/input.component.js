@@ -1,4 +1,4 @@
-import {StyleSheet, TextInput, View} from 'react-native';
+import {ActivityIndicator, StyleSheet, TextInput, View} from 'react-native';
 import React from 'react';
 import {getCoordsFromName} from '../utils/getCoordsFromName';
 import IconButton from './iconButton.component';
@@ -7,10 +7,12 @@ import LocationButton from './locationButton.component';
 export default function Input({styles, setcoords, placeholder = 'Type here'}) {
   const [query, setQuery] = React.useState('default');
   const [queryForIconButton, setqueryForIconButton] = React.useState('default');
+  const [isBusy, setisBusy] = React.useState(false);
 
   function onSubmit(input) {
     console.log(input.nativeEvent.text);
     setQuery(input.nativeEvent.text);
+    setisBusy(true);
   }
 
   React.useEffect(() => {
@@ -25,6 +27,7 @@ export default function Input({styles, setcoords, placeholder = 'Type here'}) {
         }
         console.log(`coords for ${searchValue} is ${coords}`);
         setcoords(coords);
+        setisBusy(false);
       } catch (error) {
         console.error(error);
       }
@@ -44,14 +47,18 @@ export default function Input({styles, setcoords, placeholder = 'Type here'}) {
         placeholderTextColor="#888"
       />
       {/* <LocationButton styles={styles} /> */}
-      <IconButton
-        callback={() => {
-          console.log(`searhing for ${queryForIconButton}`);
-          onSubmit({nativeEvent: {text: queryForIconButton}});
-        }}
-        iconName="search-outline"
-        styles={styles}
-      />
+      {isBusy ? (
+        <ActivityIndicator />
+      ) : (
+        <IconButton
+          callback={() => {
+            console.log(`searhing for ${queryForIconButton}`);
+            onSubmit({nativeEvent: {text: queryForIconButton}});
+          }}
+          iconName="search-outline"
+          styles={styles}
+        />
+      )}
     </View>
   );
 }
