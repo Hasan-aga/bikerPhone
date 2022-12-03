@@ -36,10 +36,10 @@ const styles = StyleSheet.create({
     width: '90%',
   },
   bar: {
+    flex: 6,
     backgroundColor: '#f7f7f7',
     color: '#555',
     height: 40,
-    width: '100%',
     margin: 12,
     borderWidth: 1,
     borderRadius: 5000,
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   },
   input: {
     color: '#555',
-    width: '85%',
+    width: '80%',
     marginLeft: 10,
     marginRight: 5,
     borderRightWidth: 1,
@@ -58,6 +58,21 @@ const styles = StyleSheet.create({
   },
   icon: {
     color: '#555',
+  },
+  circleButton: {
+    backgroundColor: '#fff',
+    height: 40,
+    width: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 1,
+    borderRadius: 100,
+    borderWidth: 1,
+  },
+  horizontalContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

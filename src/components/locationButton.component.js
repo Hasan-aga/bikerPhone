@@ -30,7 +30,7 @@ const requestLocationPermission = async () => {
   }
 };
 
-export default function LocationButton({styles}) {
+export default function LocationButton({styles, setCoords}) {
   const [location, setLocation] = React.useState(false);
 
   // function to check permissions and get Location
@@ -43,6 +43,11 @@ export default function LocationButton({styles}) {
           position => {
             console.log(position);
             setLocation(position);
+            const coords = {
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude,
+            };
+            setCoords(coords);
           },
           error => {
             // See error code charts below.
@@ -57,10 +62,12 @@ export default function LocationButton({styles}) {
   };
 
   return (
-    <IconButton
-      styles={styles}
-      callback={getLocation}
-      iconName="locate-outline"
-    />
+    <View style={styles.circleButton}>
+      <IconButton
+        styles={styles}
+        callback={getLocation}
+        iconName="locate-outline"
+      />
+    </View>
   );
 }

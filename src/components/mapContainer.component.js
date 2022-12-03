@@ -1,7 +1,6 @@
 import {StyleSheet, View} from 'react-native';
 import React from 'react';
 import MapView from 'react-native-maps';
-import Input from './input.component';
 const MapContainer = ({coords}) => {
   console.log('map coords = ', coords);
   return (
