@@ -39,8 +39,6 @@ const MapContainer = ({coords, useDarkTheme, styles}) => {
         loadingEnabled={true}>
         <CustomMarker
           coordinate={marker.coordinate}
-          title="start"
-          description="choose a starting point"
           useDarkTheme={useDarkTheme}
           styles={styles}
         />

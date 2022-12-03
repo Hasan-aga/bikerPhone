@@ -6,15 +6,9 @@ import IconButton from './iconButton.component';
 export default function CustomCallout({useDarkTheme, styles}) {
   return (
     <Callout tooltip={true}>
-      <View style={styles.callout}>
+      {/* <View style={styles.callout}>
         <Text style={styles.calloutText}>Start here</Text>
-        {/* <IconButton
-          buttonStyle={styles.circleButton}
-          iconStyle={styles.icon}
-          iconName={'checkmark-circle'}
-          callback={() => console.log('start point selected.')}
-        /> */}
-      </View>
+      </View> */}
     </Callout>
   );
 }

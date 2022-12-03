@@ -10,6 +10,7 @@ import React from 'react';
 import {StyleSheet, Text, TextInput, View} from 'react-native';
 import MapContainer from './src/components/mapContainer.component';
 import UI from './src/components/ui.component';
+import {PointProvider} from './src/context/points.context';
 import useToggle from './src/hooks/toggle.hook';
 
 const App = () => {
@@ -21,13 +22,19 @@ const App = () => {
   const [darkTheme, toggleTheme] = useToggle(false);
   return (
     <View style={styles.home}>
-      <MapContainer coords={coords} useDarkTheme={darkTheme} styles={styles} />
-      <UI
-        styles={styles}
-        setcoords={setcoords}
-        useDarkTheme={darkTheme}
-        setuseDarkTheme={toggleTheme}
-      />
+      <PointProvider>
+        <MapContainer
+          coords={coords}
+          useDarkTheme={darkTheme}
+          styles={styles}
+        />
+        <UI
+          styles={styles}
+          setcoords={setcoords}
+          useDarkTheme={darkTheme}
+          setuseDarkTheme={toggleTheme}
+        />
+      </PointProvider>
     </View>
   );
 };
@@ -45,9 +52,13 @@ const styles = StyleSheet.create({
   },
   ui: {
     flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
     position: 'absolute',
     top: 10,
     width: '90%',
+    rowGap: 10,
   },
   bar: {
     flex: 6,
@@ -100,11 +111,7 @@ const styles = StyleSheet.create({
     ...this.circleButton,
     backgroundColor: 'red',
   },
-  horizontalContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+
   callout: {
     flexDirection: 'row',
     backgroundColor: '#f7f7f7',

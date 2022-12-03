@@ -21,15 +21,13 @@ export default function CustomMarker({
     <View>
       <Marker
         coordinate={coordinate}
-        title={title}
-        description={description}
         onPress={onPress}
+        isPreselected={true}
         calloutOffset={{
           x: 1,
           y: 0,
-        }}>
-        <CustomCallout useDarkTheme={useDarkTheme} styles={styles} />
-      </Marker>
+        }}
+      />
     </View>
   );
 }
