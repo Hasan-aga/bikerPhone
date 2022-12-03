@@ -14,7 +14,7 @@ export default function IconButton({
       {isBusy ? (
         <ActivityIndicator />
       ) : (
-        <TouchIcon styles={iconStyle} callback={callback} iconName={iconName} />
+        <TouchIcon style={iconStyle} callback={callback} iconName={iconName} />
       )}
     </View>
   );

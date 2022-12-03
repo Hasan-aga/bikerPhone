@@ -17,6 +17,7 @@ const App = () => {
     latitude: 52.3727598,
     longitude: 4.8936041,
   });
+  console.log(styles.darkCircleButton);
   const [darkTheme, toggleTheme] = useToggle(false);
   return (
     <View style={styles.home}>
@@ -66,6 +67,9 @@ const styles = StyleSheet.create({
   icon: {
     color: '#555',
   },
+  yellowIcon: {
+    color: '#E9C46A',
+  },
   circleButton: {
     backgroundColor: '#fff',
     height: 40,
@@ -75,6 +79,16 @@ const styles = StyleSheet.create({
     padding: 1,
     borderRadius: 100,
     borderWidth: 1,
+  },
+  darkCircleButton: {
+    height: 40,
+    width: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 1,
+    borderRadius: 100,
+    borderWidth: 1,
+    backgroundColor: '#264653',
   },
   halfCircularButton: {
     ...this.circleButton,

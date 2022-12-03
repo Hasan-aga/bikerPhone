@@ -2,10 +2,10 @@ import {TouchableHighlight, View} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import React from 'react';
 
-export default function TouchIcon({callback, iconName, styles, size = 24}) {
+export default function TouchIcon({callback, iconName, style, size = 24}) {
   return (
     <TouchableHighlight onPress={callback}>
-      <Ionicons style={styles.icon} name={iconName} size={size} />
+      <Ionicons style={style} name={iconName} size={size} />
     </TouchableHighlight>
   );
 }
