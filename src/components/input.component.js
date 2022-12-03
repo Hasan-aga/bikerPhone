@@ -45,6 +45,7 @@ export default function Input({styles, setcoords, placeholder = 'Type here'}) {
         onSubmitEditing={onSubmit}
         onChangeText={setqueryForIconButton}
         placeholderTextColor="#888"
+        returnKeyType="search"
       />
       {/* <LocationButton styles={styles} /> */}
       {isBusy ? (
