@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import MapView, {Marker} from 'react-native-maps';
 import {darkMap, lightMap} from '../utils/map.theme';
 import CustomMarker from './customMarker.component';
-const MapContainer = ({coords, useDarkTheme}) => {
+const MapContainer = ({coords, useDarkTheme, styles}) => {
   console.log('map coords = ', coords);
 
   const [marker, setMarker] = useState({
@@ -22,7 +22,7 @@ const MapContainer = ({coords, useDarkTheme}) => {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={styles.mapcontainer}>
       <MapView
         style={styles.map}
         //specify our coordinates.
@@ -49,13 +49,3 @@ const MapContainer = ({coords, useDarkTheme}) => {
   );
 };
 export default MapContainer;
-
-//create our styling code:
-const styles = StyleSheet.create({
-  container: {
-    flex: 1, //the container will fill the whole screen.
-  },
-  map: {
-    flex: 1,
-  },
-});

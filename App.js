@@ -21,7 +21,7 @@ const App = () => {
   const [darkTheme, toggleTheme] = useToggle(false);
   return (
     <View style={styles.home}>
-      <MapContainer coords={coords} useDarkTheme={darkTheme} />
+      <MapContainer coords={coords} useDarkTheme={darkTheme} styles={styles} />
       <UI
         styles={styles}
         setcoords={setcoords}
@@ -36,6 +36,12 @@ const styles = StyleSheet.create({
   home: {
     flex: 1,
     position: 'relative',
+  },
+  mapcontainer: {
+    flex: 1, //the container will fill the whole screen.
+  },
+  map: {
+    flex: 1,
   },
   ui: {
     flex: 1,
@@ -98,6 +104,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  callout: {
+    flexDirection: 'row',
+    backgroundColor: '#f7f7f7',
+    padding: 10,
+    borderWidth: 1,
+    borderRadius: 100,
+    color: '#222',
+    margin: 1,
+  },
+  calloutText: {
+    alignSelf: 'center',
   },
 });
 
