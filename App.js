@@ -12,11 +12,14 @@ import MapContainer from './src/components/mapContainer.component';
 import UI from './src/components/ui.component';
 
 const App = () => {
-  const [coords, setcoords] = React.useState();
+  const [coords, setcoords] = React.useState({
+    latitude: 52.3727598,
+    longitude: 4.8936041,
+  });
   return (
     <View style={styles.home}>
-      <MapContainer />
-      <UI styles={styles} />
+      <MapContainer coords={coords} />
+      <UI styles={styles} setcoords={setcoords} />
     </View>
   );
 };

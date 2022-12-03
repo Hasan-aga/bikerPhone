@@ -2,8 +2,9 @@ import {StyleSheet, TextInput, View} from 'react-native';
 import React from 'react';
 import {getCoordsFromName} from '../utils/getCoordsFromName';
 
-export default function Input({style, placeholder = 'Type here'}) {
+export default function Input({style, setcoords, placeholder = 'Type here'}) {
   const [query, setQuery] = React.useState('default');
+
   function onSubmit(input) {
     console.log(input.nativeEvent.text);
     setQuery(input.nativeEvent.text);
@@ -20,13 +21,14 @@ export default function Input({style, placeholder = 'Type here'}) {
           throw new Error('no coordinates!');
         }
         console.log(`coords for ${searchValue} is ${coords}`);
+        setcoords(coords);
       } catch (error) {
         console.error(error);
       }
     }
 
     runQuery(query);
-  }, [query]);
+  }, [query, setcoords]);
 
   return (
     <TextInput
