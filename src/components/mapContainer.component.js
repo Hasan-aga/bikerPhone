@@ -1,12 +1,26 @@
 import {StyleSheet, View, Keyboard} from 'react-native';
-import React from 'react';
-import MapView from 'react-native-maps';
+import React, {useState} from 'react';
+import MapView, {Marker} from 'react-native-maps';
 import {darkMap, lightMap} from '../utils/map.theme';
+import CustomMarker from './customMarker.component';
 const MapContainer = ({coords, useDarkTheme}) => {
   console.log('map coords = ', coords);
-  function onPress() {
+
+  const [marker, setMarker] = useState({
+    coordinate: {
+      latitude: coords.latitude,
+      longitude: coords.longitude,
+    },
+    title: 'start here',
+    description: 'choose a start point',
+  });
+
+  function onPress(input) {
     Keyboard.dismiss();
+    console.log('input', input.nativeEvent.coordinate);
+    setMarker({...marker, coordinate: {...input.nativeEvent.coordinate}});
   }
+
   return (
     <View style={styles.container}>
       <MapView
@@ -19,7 +33,18 @@ const MapContainer = ({coords, useDarkTheme}) => {
         }}
         customMapStyle={useDarkTheme ? darkMap : lightMap}
         onPress={onPress}
-      />
+        showsUserLocation={true}
+        showsMyLocationButton={false}
+        rotateEnabled={false}
+        loadingEnabled={true}>
+        <CustomMarker
+          coordinate={marker.coordinate}
+          title="start"
+          description="choose a starting point"
+          useDarkTheme={useDarkTheme}
+          styles={styles}
+        />
+      </MapView>
     </View>
   );
 };
