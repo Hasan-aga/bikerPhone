@@ -2,7 +2,7 @@ import {createContext, useState} from 'react';
 import React from 'react';
 
 export const pointContext = createContext({
-  points: [{type: 'temporary', coords: {lat: 0, lng: 0}}],
+  points: [{type: 'temporary', coordinate: {latitude: 0, longitude: 0}}],
   setPoints: () => {},
 });
 

@@ -15,21 +15,16 @@ const MapContainer = ({coords, useDarkTheme, styles, toggleMapPressed}) => {
       latitude: coords.latitude,
       longitude: coords.longitude,
     },
-    title: 'start here',
-    description: 'choose a start point',
   });
 
   function onPress(input) {
     Keyboard.dismiss();
     toggleMapPressed();
     console.log('input', input.nativeEvent.coordinate);
-    setMarker({...marker, coordinate: {...input.nativeEvent.coordinate}});
+    setMarker({coordinate: {...input.nativeEvent.coordinate}});
     addTemporaryPoint({
       type: 'temporary',
-      coords: {
-        lat: marker.coordinate.latitude,
-        lng: marker.coordinate.longitude,
-      },
+      coordinate: {...input.nativeEvent.coordinate},
     });
   }
 
@@ -59,6 +54,16 @@ const MapContainer = ({coords, useDarkTheme, styles, toggleMapPressed}) => {
           useDarkTheme={useDarkTheme}
           styles={styles}
         />
+        {points
+          .filter(p => p.type !== 'temporary')
+          .map((p, index) => (
+            <CustomMarker
+              key={index}
+              coordinate={p.coordinate}
+              useDarkTheme={useDarkTheme}
+              styles={styles}
+            />
+          ))}
       </MapView>
     </View>
   );
