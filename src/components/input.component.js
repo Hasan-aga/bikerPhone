@@ -58,7 +58,8 @@ export default function Input({styles, setcoords, placeholder = 'Type here'}) {
             onSubmit({nativeEvent: {text: queryForIconButton}});
           }}
           iconName="search-outline"
-          styles={styles}
+          buttonStyle={styles.iconOnlyButton}
+          iconStyle={styles.icon}
         />
       )}
     </View>

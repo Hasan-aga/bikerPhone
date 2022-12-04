@@ -13,10 +13,12 @@ export default function IconButton({
   isBusy,
   callback,
   iconName,
+  children,
 }) {
   return (
     <Pressable onPress={callback}>
       <View style={buttonStyle}>
+        {children}
         {isBusy ? (
           <ActivityIndicator />
         ) : (

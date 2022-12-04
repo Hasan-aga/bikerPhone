@@ -6,6 +6,9 @@ import CustomMarker from './customMarker.component';
 const MapContainer = ({coords, useDarkTheme, styles, toggleMapPressed}) => {
   console.log('map coords = ', coords);
 
+  // add temp point to context
+  const 
+
   const [marker, setMarker] = useState({
     coordinate: {
       latitude: coords.latitude,
