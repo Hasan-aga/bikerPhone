@@ -1,4 +1,9 @@
-import {ActivityIndicator, View} from 'react-native';
+import {
+  ActivityIndicator,
+  Pressable,
+  TouchableHighlight,
+  View,
+} from 'react-native';
 import TouchIcon from './touchIcon.component';
 import React from 'react';
 
@@ -10,12 +15,14 @@ export default function IconButton({
   iconName,
 }) {
   return (
-    <View style={buttonStyle}>
-      {isBusy ? (
-        <ActivityIndicator />
-      ) : (
-        <TouchIcon style={iconStyle} callback={callback} iconName={iconName} />
-      )}
-    </View>
+    <Pressable onPress={callback}>
+      <View style={buttonStyle}>
+        {isBusy ? (
+          <ActivityIndicator />
+        ) : (
+          <TouchIcon style={iconStyle} iconName={iconName} />
+        )}
+      </View>
+    </Pressable>
   );
 }
