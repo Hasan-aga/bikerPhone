@@ -3,12 +3,12 @@ import {useContext, useEffect, useState} from 'react';
 import {pointsContext} from '../context/points.context';
 import {getRoute} from '../utils/getRoute';
 import React from 'react';
+import {pathContext} from '../context/path.context';
 
 export default function Path() {
   const [points] = useContext(pointsContext);
-  const [path, setPath] = useState();
+  const [path, setPath] = useContext(pathContext);
   const pathPoints = points.permanent;
-  console.log('path pointsssss:', pathPoints.length);
 
   useEffect(() => {
     if (pathPoints.length < 2) {

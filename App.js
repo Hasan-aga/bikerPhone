@@ -11,6 +11,7 @@ import {StyleSheet, Text, TextInput, View} from 'react-native';
 import Card from './src/components/card.component';
 import MapContainer from './src/components/mapContainer.component';
 import UI from './src/components/ui.component';
+import {PathProvider} from './src/context/path.context';
 import {PointProvider} from './src/context/points.context';
 import useToggle from './src/hooks/toggle.hook';
 
@@ -25,20 +26,22 @@ const App = () => {
   return (
     <View style={styles.home}>
       <PointProvider>
-        <MapContainer
-          coords={coords}
-          useDarkTheme={darkTheme}
-          styles={styles}
-          cardVisible={cardVisible}
-          toggleCard={toggleCard}
-        />
-        <UI
-          styles={styles}
-          setcoords={setcoords}
-          useDarkTheme={darkTheme}
-          setuseDarkTheme={toggleTheme}
-        />
-        {cardVisible && <Card styles={styles} toggleCard={toggleCard} />}
+        <PathProvider>
+          <MapContainer
+            coords={coords}
+            useDarkTheme={darkTheme}
+            styles={styles}
+            cardVisible={cardVisible}
+            toggleCard={toggleCard}
+          />
+          <UI
+            styles={styles}
+            setcoords={setcoords}
+            useDarkTheme={darkTheme}
+            setuseDarkTheme={toggleTheme}
+          />
+          {cardVisible && <Card styles={styles} toggleCard={toggleCard} />}
+        </PathProvider>
       </PointProvider>
     </View>
   );
