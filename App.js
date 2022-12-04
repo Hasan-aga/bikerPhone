@@ -38,7 +38,7 @@ const App = () => {
           useDarkTheme={darkTheme}
           setuseDarkTheme={toggleTheme}
         />
-        {cardVisible && <Card styles={styles} />}
+        {cardVisible && <Card styles={styles} toggleCard={toggleCard} />}
       </PointProvider>
     </View>
   );

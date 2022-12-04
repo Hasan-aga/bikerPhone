@@ -3,10 +3,11 @@ import React, {useContext} from 'react';
 import IconButton from './iconButton.component';
 import {pointsContext} from '../context/points.context';
 
-export default function Card({styles}) {
+export default function Card({styles, toggleCard}) {
   const [points, setPoints] = useContext(pointsContext);
 
   function addPoint() {
+    toggleCard();
     console.log('adding new point, total points= ', points.permanent.length);
     const desiredPoint = points.temporary;
     const newPermanentPoint = {
