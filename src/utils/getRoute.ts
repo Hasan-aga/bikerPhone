@@ -13,7 +13,10 @@ export const getRoute = async points => {
   try {
     const response = await getJsonFromFetch(url);
     const result = response as any as Route;
-    return {path: result.features[0].geometry.coordinates[0]};
+    return {
+      path: result.features[0].geometry.coordinates[0],
+      elevationData: result.features[0].properties.legs,
+    };
   } catch (e) {
     console.log('getRoute failed');
     throw e;

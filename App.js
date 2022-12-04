@@ -170,10 +170,16 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '40%',
     borderRadius: 20,
-    paddingTop: 20,
   },
   cardText: {
     color: '#222',
+  },
+  chartContainer: {flex: 4, backgroundColor: '#F5FCFF'},
+  verticalContainer: {
+    alignItems: 'flex-start',
+  },
+  horizontalScroll: {
+    backgroundColor: 'red',
   },
 });
 

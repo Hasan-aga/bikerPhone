@@ -1,12 +1,15 @@
-import {Text, View} from 'react-native';
+import {ScrollView, Text, View} from 'react-native';
 import React, {useContext} from 'react';
 import IconButton from './iconButton.component';
 import {pointsContext} from '../context/points.context';
 import {pathContext} from '../context/path.context';
+import Chart from './chart.component';
 
 export default function Card({styles, toggleCard}) {
   const [points, setPoints] = useContext(pointsContext);
-  const [path, setPath] = useContext(pathContext);
+  const {path, setPath, elevation} = useContext(pathContext);
+
+  console.log('elevation: ', elevation);
 
   function addPoint() {
     toggleCard();
@@ -27,19 +30,24 @@ export default function Card({styles, toggleCard}) {
   function removePoints() {
     toggleCard();
     setPoints({permanent: []});
-    setPath([]);
+    setPath();
   }
 
   return (
     <View style={styles.card}>
       {path ? (
-        <IconButton
-          iconName="close-outline"
-          callback={removePoints}
-          buttonStyle={styles.deleteTextAndIconButton}
-          iconStyle={styles.icon}>
-          <Text style={styles.cardText}>Clear All</Text>
-        </IconButton>
+        <View style={styles.verticalContainer}>
+          <ScrollView horizontal={true} style={styles.horizontalScroll}>
+            <IconButton
+              iconName="close-outline"
+              callback={removePoints}
+              buttonStyle={styles.deleteTextAndIconButton}
+              iconStyle={styles.icon}>
+              <Text style={styles.cardText}>Clear All</Text>
+            </IconButton>
+          </ScrollView>
+          <Chart styles={styles} data={elevation} />
+        </View>
       ) : (
         <>
           <IconButton

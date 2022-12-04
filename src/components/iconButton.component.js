@@ -16,7 +16,7 @@ export default function IconButton({
   children,
 }) {
   return (
-    <Pressable onPress={callback}>
+    <Pressable onPress={callback} android_ripple={{color: 'red', radius: 5000}}>
       <View style={buttonStyle}>
         {children}
         {isBusy ? (
