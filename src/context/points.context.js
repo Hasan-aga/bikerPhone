@@ -2,7 +2,7 @@ import {createContext, useState} from 'react';
 import React from 'react';
 
 export const pointContext = createContext({
-  points: [{coords: {latitude: 0, longtitude: 0}}],
+  points: [{type: 'temporary', coords: {lat: 0, lng: 0}}],
   setPoints: () => {},
 });
 
@@ -11,10 +11,7 @@ export const PointProvider = ({children}) => {
     {type: 'temporary', coords: {lat: 0, lng: 0}},
   ]);
 
-  const value = {
-    points,
-    setPoints,
-  };
+  const value = [points, setPoints];
 
   return (
     <pointContext.Provider value={value}>{children}</pointContext.Provider>

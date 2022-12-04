@@ -1,13 +1,14 @@
 import {StyleSheet, View, Keyboard} from 'react-native';
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import MapView, {Marker} from 'react-native-maps';
 import {darkMap, lightMap} from '../utils/map.theme';
 import CustomMarker from './customMarker.component';
+import {pointContext} from '../context/points.context';
 const MapContainer = ({coords, useDarkTheme, styles, toggleMapPressed}) => {
   console.log('map coords = ', coords);
 
   // add temp point to context
-  const 
+  const [points, setPoints] = useContext(pointContext);
 
   const [marker, setMarker] = useState({
     coordinate: {
@@ -23,6 +24,18 @@ const MapContainer = ({coords, useDarkTheme, styles, toggleMapPressed}) => {
     toggleMapPressed();
     console.log('input', input.nativeEvent.coordinate);
     setMarker({...marker, coordinate: {...input.nativeEvent.coordinate}});
+    addTemporaryPoint({
+      type: 'temporary',
+      coords: {
+        lat: marker.coordinate.latitude,
+        lng: marker.coordinate.longitude,
+      },
+    });
+  }
+
+  function addTemporaryPoint(temporaryPoint) {
+    const perminantPoints = points.filter(p => p.type !== 'temporary');
+    setPoints([...perminantPoints, temporaryPoint]);
   }
 
   return (
