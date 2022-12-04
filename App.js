@@ -127,6 +127,18 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     borderWidth: 1,
   },
+  deleteTextAndIconButton: {
+    flexDirection: 'row',
+    backgroundColor: '#F4A261',
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingLeft: 10,
+    paddingRight: 10,
+    margin: 10,
+    borderRadius: 100,
+    borderWidth: 1,
+  },
   iconOnlyButton: {
     height: 40,
     width: 40,
