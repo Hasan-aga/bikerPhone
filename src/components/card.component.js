@@ -4,11 +4,6 @@ import IconButton from './iconButton.component';
 import {pointsContext} from '../context/points.context';
 
 export default function Card({styles}) {
-  // view all points in context
-  // there should be only one temporary point
-  // change its type to perminant
-  // get a list of all other perminant points
-  // update the points context with the new point + all perminant points
   const [points, setPoints] = useContext(pointsContext);
 
   function addPoint() {

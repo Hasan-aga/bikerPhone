@@ -20,7 +20,7 @@ const App = () => {
     longitude: 4.8936041,
   });
   const [darkTheme, toggleTheme] = useToggle(false);
-  const [mapPressed, toggleMapPressed] = useToggle(false);
+  const [cardVisible, toggleCard] = useToggle(false);
 
   return (
     <View style={styles.home}>
@@ -29,7 +29,8 @@ const App = () => {
           coords={coords}
           useDarkTheme={darkTheme}
           styles={styles}
-          toggleMapPressed={toggleMapPressed}
+          cardVisible={cardVisible}
+          toggleCard={toggleCard}
         />
         <UI
           styles={styles}
@@ -37,7 +38,7 @@ const App = () => {
           useDarkTheme={darkTheme}
           setuseDarkTheme={toggleTheme}
         />
-        {mapPressed && <Card styles={styles} />}
+        {cardVisible && <Card styles={styles} />}
       </PointProvider>
     </View>
   );

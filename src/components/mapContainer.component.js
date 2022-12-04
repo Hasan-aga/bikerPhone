@@ -5,7 +5,13 @@ import {darkMap, lightMap} from '../utils/map.theme';
 import CustomMarker from './customMarker.component';
 import {pointsContext} from '../context/points.context';
 import Path from './path.component';
-const MapContainer = ({coords, useDarkTheme, styles, toggleMapPressed}) => {
+const MapContainer = ({
+  coords,
+  useDarkTheme,
+  styles,
+  cardVisible,
+  toggleCard,
+}) => {
   console.log('map rendered at coords = ', coords);
 
   // add temp point to context
@@ -20,7 +26,10 @@ const MapContainer = ({coords, useDarkTheme, styles, toggleMapPressed}) => {
 
   function onPress(input) {
     Keyboard.dismiss();
-    toggleMapPressed();
+    toggleCard();
+    if (cardVisible) {
+      return;
+    }
     setMarker({coordinate: {...input.nativeEvent.coordinate}});
     addTemporaryPoint({
       type: 'temporary',
