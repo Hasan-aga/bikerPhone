@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import MapView, {Marker} from 'react-native-maps';
 import {darkMap, lightMap} from '../utils/map.theme';
 import CustomMarker from './customMarker.component';
-const MapContainer = ({coords, useDarkTheme, styles}) => {
+const MapContainer = ({coords, useDarkTheme, styles, toggleMapPressed}) => {
   console.log('map coords = ', coords);
 
   const [marker, setMarker] = useState({
@@ -17,6 +17,7 @@ const MapContainer = ({coords, useDarkTheme, styles}) => {
 
   function onPress(input) {
     Keyboard.dismiss();
+    toggleMapPressed();
     console.log('input', input.nativeEvent.coordinate);
     setMarker({...marker, coordinate: {...input.nativeEvent.coordinate}});
   }

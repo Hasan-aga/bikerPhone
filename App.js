@@ -8,6 +8,7 @@
 
 import React from 'react';
 import {StyleSheet, Text, TextInput, View} from 'react-native';
+import Card from './src/components/card.component';
 import MapContainer from './src/components/mapContainer.component';
 import UI from './src/components/ui.component';
 import {PointProvider} from './src/context/points.context';
@@ -20,6 +21,8 @@ const App = () => {
   });
   console.log(styles.darkCircleButton);
   const [darkTheme, toggleTheme] = useToggle(false);
+  const [mapPressed, toggleMapPressed] = useToggle(false);
+
   return (
     <View style={styles.home}>
       <PointProvider>
@@ -27,6 +30,7 @@ const App = () => {
           coords={coords}
           useDarkTheme={darkTheme}
           styles={styles}
+          toggleMapPressed={toggleMapPressed}
         />
         <UI
           styles={styles}
@@ -34,6 +38,7 @@ const App = () => {
           useDarkTheme={darkTheme}
           setuseDarkTheme={toggleTheme}
         />
+        {mapPressed && <Card styles={styles} />}
       </PointProvider>
     </View>
   );
@@ -123,6 +128,16 @@ const styles = StyleSheet.create({
   },
   calloutText: {
     alignSelf: 'center',
+  },
+  card: {
+    backgroundColor: '#f7f7f7',
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    height: '40%',
+  },
+  cardText: {
+    color: '#222',
   },
 });
 
