@@ -3,6 +3,7 @@ import React from 'react';
 import {getCoordsFromName} from '../utils/getCoordsFromName';
 import TouchIcon from './touchIcon.component';
 import LocationButton from './locationButton.component';
+import IconButton from './iconButton.component';
 
 export default function Input({styles, setcoords, placeholder = 'Type here'}) {
   const [query, setQuery] = React.useState('default');
@@ -48,10 +49,10 @@ export default function Input({styles, setcoords, placeholder = 'Type here'}) {
         returnKeyType="search"
       />
       {/* <LocationButton styles={styles} /> */}
-      {isBusy ? (
+      {isBusy && query !== 'default' ? (
         <ActivityIndicator />
       ) : (
-        <TouchIcon
+        <IconButton
           callback={() => {
             console.log(`searhing for ${queryForIconButton}`);
             onSubmit({nativeEvent: {text: queryForIconButton}});
