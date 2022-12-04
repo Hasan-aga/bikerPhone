@@ -91,6 +91,7 @@ export const getJsonFromFetch = async function (
 
     return await response.json();
   } catch (e) {
+    console.log('getJson failed');
     throw e;
   }
 };

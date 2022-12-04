@@ -19,7 +19,6 @@ const App = () => {
     latitude: 52.3727598,
     longitude: 4.8936041,
   });
-  console.log(styles.darkCircleButton);
   const [darkTheme, toggleTheme] = useToggle(false);
   const [mapPressed, toggleMapPressed] = useToggle(false);
 

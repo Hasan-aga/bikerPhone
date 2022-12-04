@@ -1,19 +1,23 @@
 import {createContext, useState} from 'react';
 import React from 'react';
 
-export const pointContext = createContext({
-  points: [{type: 'temporary', coordinate: {latitude: 0, longitude: 0}}],
+export const pointsContext = createContext({
+  points: {
+    temporary: {type: 'temporary', coordinate: {latitude: 0, longitude: 0}},
+    permanent: [{type: 'permanent', coordinate: {latitude: 0, longitude: 0}}],
+  },
   setPoints: () => {},
 });
 
 export const PointProvider = ({children}) => {
-  const [points, setPoints] = useState([
-    {type: 'temporary', coords: {lat: 0, lng: 0}},
-  ]);
+  const [points, setPoints] = useState({
+    temporary: {type: 'temporary', coordinate: {latitude: 0, longitude: 0}},
+    permanent: [],
+  });
 
   const value = [points, setPoints];
 
   return (
-    <pointContext.Provider value={value}>{children}</pointContext.Provider>
+    <pointsContext.Provider value={value}>{children}</pointsContext.Provider>
   );
 };

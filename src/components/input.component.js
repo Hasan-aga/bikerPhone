@@ -11,7 +11,6 @@ export default function Input({styles, setcoords, placeholder = 'Type here'}) {
   const [isBusy, setisBusy] = React.useState(false);
 
   function onSubmit(input) {
-    console.log(input.nativeEvent.text);
     setQuery(input.nativeEvent.text);
     setisBusy(true);
   }
@@ -26,7 +25,6 @@ export default function Input({styles, setcoords, placeholder = 'Type here'}) {
         if (!coords) {
           throw new Error('no coordinates!');
         }
-        console.log(`coords for ${searchValue} is ${coords}`);
         setcoords(coords);
         setisBusy(false);
       } catch (error) {
@@ -54,7 +52,6 @@ export default function Input({styles, setcoords, placeholder = 'Type here'}) {
       ) : (
         <IconButton
           callback={() => {
-            console.log(`searhing for ${queryForIconButton}`);
             onSubmit({nativeEvent: {text: queryForIconButton}});
           }}
           iconName="search-outline"

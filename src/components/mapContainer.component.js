@@ -3,12 +3,13 @@ import React, {useContext, useState} from 'react';
 import MapView, {Marker} from 'react-native-maps';
 import {darkMap, lightMap} from '../utils/map.theme';
 import CustomMarker from './customMarker.component';
-import {pointContext} from '../context/points.context';
+import {pointsContext} from '../context/points.context';
+import Path from './path.component';
 const MapContainer = ({coords, useDarkTheme, styles, toggleMapPressed}) => {
-  console.log('map coords = ', coords);
+  console.log('map rendered at coords = ', coords);
 
   // add temp point to context
-  const [points, setPoints] = useContext(pointContext);
+  const [points, setPoints] = useContext(pointsContext);
 
   const [marker, setMarker] = useState({
     coordinate: {
@@ -20,7 +21,6 @@ const MapContainer = ({coords, useDarkTheme, styles, toggleMapPressed}) => {
   function onPress(input) {
     Keyboard.dismiss();
     toggleMapPressed();
-    console.log('input', input.nativeEvent.coordinate);
     setMarker({coordinate: {...input.nativeEvent.coordinate}});
     addTemporaryPoint({
       type: 'temporary',
@@ -29,8 +29,7 @@ const MapContainer = ({coords, useDarkTheme, styles, toggleMapPressed}) => {
   }
 
   function addTemporaryPoint(temporaryPoint) {
-    const perminantPoints = points.filter(p => p.type !== 'temporary');
-    setPoints([...perminantPoints, temporaryPoint]);
+    setPoints({temporary: temporaryPoint, permanent: points.permanent});
   }
 
   return (
@@ -54,16 +53,15 @@ const MapContainer = ({coords, useDarkTheme, styles, toggleMapPressed}) => {
           useDarkTheme={useDarkTheme}
           styles={styles}
         />
-        {points
-          .filter(p => p.type !== 'temporary')
-          .map((p, index) => (
-            <CustomMarker
-              key={index}
-              coordinate={p.coordinate}
-              useDarkTheme={useDarkTheme}
-              styles={styles}
-            />
-          ))}
+        {points.permanent.map((p, index) => (
+          <CustomMarker
+            key={index}
+            coordinate={p.coordinate}
+            useDarkTheme={useDarkTheme}
+            styles={styles}
+          />
+        ))}
+        {points && <Path />}
       </MapView>
     </View>
   );
