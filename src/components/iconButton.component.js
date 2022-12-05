@@ -2,6 +2,7 @@ import {
   ActivityIndicator,
   Pressable,
   TouchableHighlight,
+  TouchableNativeFeedback,
   View,
 } from 'react-native';
 import TouchIcon from './touchIcon.component';
@@ -9,6 +10,7 @@ import React from 'react';
 
 export default function IconButton({
   buttonStyle,
+  buttonContainer,
   iconStyle,
   isBusy,
   callback,
@@ -16,15 +18,18 @@ export default function IconButton({
   children,
 }) {
   return (
-    <Pressable onPress={callback} android_ripple={{color: 'red', radius: 5000}}>
-      <View style={buttonStyle}>
+    <TouchableHighlight
+      style={buttonStyle}
+      onPress={callback}
+      underlayColor="#999">
+      <>
         {children}
         {isBusy ? (
           <ActivityIndicator />
         ) : (
           <TouchIcon style={iconStyle} iconName={iconName} />
         )}
-      </View>
-    </Pressable>
+      </>
+    </TouchableHighlight>
   );
 }
