@@ -15,6 +15,7 @@ import {
   View,
 } from 'react-native';
 import BottomUi from './src/components/bottomUi.component';
+import Busy from './src/components/busy.component';
 import Card from './src/components/card.component';
 import InfoCard from './src/components/infoCard.component';
 import MapContainer from './src/components/mapContainer.component';
@@ -55,7 +56,7 @@ const App = () => {
             <InfoCard
               isVisible={gettingData}
               styles={styles}
-              message={<ActivityIndicator />}
+              message={<Busy styles={styles} />}
             />
           </BottomUi>
         </PathProvider>
@@ -110,6 +111,7 @@ const styles = StyleSheet.create({
   yellowIcon: {
     color: '#E9C46A',
   },
+
   circleButton: {
     backgroundColor: '#fff',
     height: 40,
@@ -201,6 +203,23 @@ const styles = StyleSheet.create({
   },
   horizontalScroll: {
     backgroundColor: 'red',
+  },
+  busy: {
+    backgroundColor: '#f7f7f7',
+    borderRadius: 100,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 15,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginBottom: 100,
+    width: '50%',
+  },
+  busyText: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    color: '#333',
   },
 });
 
