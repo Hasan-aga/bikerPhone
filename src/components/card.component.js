@@ -4,10 +4,13 @@ import IconButton from './iconButton.component';
 import {pointsContext} from '../context/points.context';
 import {pathContext} from '../context/path.context';
 import Chart from './chart.component';
+import {useModifiedElevation} from '../hooks/useModifiedElevation.hook';
 
 export default function Card({styles, toggleCard}) {
   const [points, setPoints] = useContext(pointsContext);
-  const {path, setPath, elevation} = useContext(pathContext);
+  const {path, setPath} = useContext(pathContext);
+  const elevationDataset = useModifiedElevation();
+  console.log(elevationDataset);
 
   function addPoint() {
     toggleCard();
@@ -46,7 +49,7 @@ export default function Card({styles, toggleCard}) {
             iconStyle={styles.icon}>
             <Text style={styles.cardText}>Clear All</Text>
           </IconButton>
-          <Chart styles={styles} data={elevation} />
+          <Chart styles={styles} data={elevationDataset} />
         </View>
       ) : (
         <>

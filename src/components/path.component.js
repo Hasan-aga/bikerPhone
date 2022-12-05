@@ -29,10 +29,10 @@ export default function Path({setgettingData}) {
         });
         setPath(modifiedPath);
 
-        const modifiedElevation = relateDistanceAcrossLegs(
-          results.elevationData,
-        );
-        setElevation(modifiedElevation);
+        // const modifiedElevation = relateDistanceAcrossLegs(
+        //   results.elevationData,
+        // );
+        setElevation(results.elevationData);
       } catch (error) {
         setgettingData(false);
         console.log(`failed to get path because ${error}`);
