@@ -6,12 +6,20 @@
  * @flow strict-local
  */
 
-import React from 'react';
-import {StyleSheet, Text, TextInput, View} from 'react-native';
+import React, {useContext, useState} from 'react';
+import {
+  ActivityIndicator,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
+import BottomUi from './src/components/bottomUi.component';
 import Card from './src/components/card.component';
+import InfoCard from './src/components/infoCard.component';
 import MapContainer from './src/components/mapContainer.component';
-import UI from './src/components/ui.component';
-import {PathProvider} from './src/context/path.context';
+import TopUi from './src/components/topUi.component';
+import {pathContext, PathProvider} from './src/context/path.context';
 import {PointProvider} from './src/context/points.context';
 import useToggle from './src/hooks/toggle.hook';
 
@@ -22,6 +30,7 @@ const App = () => {
   });
   const [darkTheme, toggleTheme] = useToggle(false);
   const [cardVisible, toggleCard] = useToggle(false);
+  const [gettingData, setgettingData] = useState(false);
 
   return (
     <View style={styles.home}>
@@ -33,14 +42,22 @@ const App = () => {
             styles={styles}
             cardVisible={cardVisible}
             toggleCard={toggleCard}
+            setgettingData={setgettingData}
           />
-          <UI
+          <TopUi
             styles={styles}
             setcoords={setcoords}
             useDarkTheme={darkTheme}
             setuseDarkTheme={toggleTheme}
           />
-          {cardVisible && <Card styles={styles} toggleCard={toggleCard} />}
+          <BottomUi styles={styles}>
+            {cardVisible && <Card styles={styles} toggleCard={toggleCard} />}
+            <InfoCard
+              isVisible={gettingData}
+              styles={styles}
+              message={<ActivityIndicator />}
+            />
+          </BottomUi>
         </PathProvider>
       </PointProvider>
     </View>
@@ -160,15 +177,19 @@ const styles = StyleSheet.create({
   calloutText: {
     alignSelf: 'center',
   },
+  bottomUi: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+  },
   card: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     backgroundColor: '#f7f7f7',
-    position: 'absolute',
     bottom: 0,
     width: '100%',
-    height: '40%',
+    height: '100%',
     borderRadius: 20,
   },
   cardText: {

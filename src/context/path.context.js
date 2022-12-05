@@ -10,6 +10,11 @@ export const PathProvider = ({children}) => {
   const [path, setPath] = useState();
   const [elevation, setElevation] = useState();
 
-  const value = {path, setPath, elevation, setElevation};
+  const value = {
+    path,
+    setPath,
+    elevation,
+    setElevation,
+  };
   return <pathContext.Provider value={value}>{children}</pathContext.Provider>;
 };

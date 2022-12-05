@@ -1,5 +1,5 @@
 import {ScrollView, Text, View} from 'react-native';
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import IconButton from './iconButton.component';
 import {pointsContext} from '../context/points.context';
 import {pathContext} from '../context/path.context';
@@ -8,8 +8,6 @@ import Chart from './chart.component';
 export default function Card({styles, toggleCard}) {
   const [points, setPoints] = useContext(pointsContext);
   const {path, setPath, elevation} = useContext(pathContext);
-
-  console.log('elevation: ', elevation);
 
   function addPoint() {
     toggleCard();
@@ -33,20 +31,22 @@ export default function Card({styles, toggleCard}) {
     setPath();
   }
 
+  function getButtonText() {
+    return points.permanent.length === 0 ? 'Start here' : 'Add point';
+  }
+
   return (
     <View style={styles.card}>
       {path ? (
         <View style={styles.verticalContainer}>
-          <ScrollView horizontal={true} style={styles.horizontalScroll}>
-            <IconButton
-              iconName="close-outline"
-              callback={removePoints}
-              buttonStyle={styles.deleteTextAndIconButton}
-              iconStyle={styles.icon}>
-              <Text style={styles.cardText}>Clear All</Text>
-            </IconButton>
-          </ScrollView>
-          <Chart styles={styles} data={elevation} />
+          <IconButton
+            iconName="close-outline"
+            callback={removePoints}
+            buttonStyle={styles.deleteTextAndIconButton}
+            iconStyle={styles.icon}>
+            <Text style={styles.cardText}>Clear All</Text>
+          </IconButton>
+          {/* <Chart styles={styles} data={elevation} /> */}
         </View>
       ) : (
         <>
@@ -55,14 +55,7 @@ export default function Card({styles, toggleCard}) {
             callback={addPoint}
             buttonStyle={styles.textAndIconButton}
             iconStyle={styles.icon}>
-            <Text style={styles.cardText}>Start here</Text>
-          </IconButton>
-          <IconButton
-            iconName="add-outline"
-            callback={addPoint}
-            buttonStyle={styles.textAndIconButton}
-            iconStyle={styles.icon}>
-            <Text style={styles.cardText}>Set as destination</Text>
+            <Text style={styles.cardText}>{getButtonText()}</Text>
           </IconButton>
         </>
       )}

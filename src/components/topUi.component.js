@@ -5,12 +5,17 @@ import TouchIcon from './touchIcon.component';
 import LocationButton from './locationButton.component';
 import IconButton from './iconButton.component';
 
-export default function UI({styles, setcoords, useDarkTheme, setuseDarkTheme}) {
+export default function TopUi({
+  styles,
+  setcoords,
+  useDarkTheme,
+  setuseDarkTheme,
+  children,
+}) {
   return (
     <View style={styles.ui}>
       <Input styles={styles} setcoords={setcoords} placeholder="Search..." />
       <LocationButton styles={styles} setCoords={setcoords} />
-
       <IconButton
         buttonStyle={
           useDarkTheme ? styles.darkCircleButton : styles.circleButton
@@ -19,6 +24,7 @@ export default function UI({styles, setcoords, useDarkTheme, setuseDarkTheme}) {
         callback={setuseDarkTheme}
         iconName={useDarkTheme ? 'sunny' : 'moon'}
       />
+      {children}
     </View>
   );
 }

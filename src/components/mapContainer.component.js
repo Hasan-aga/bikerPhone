@@ -11,6 +11,7 @@ const MapContainer = ({
   styles,
   cardVisible,
   toggleCard,
+  setgettingData,
 }) => {
   console.log('map rendered at coords = ', coords);
 
@@ -70,7 +71,7 @@ const MapContainer = ({
             styles={styles}
           />
         ))}
-        {points && <Path />}
+        {points && <Path setgettingData={setgettingData} />}
       </MapView>
     </View>
   );

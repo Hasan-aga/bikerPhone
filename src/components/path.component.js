@@ -6,9 +6,9 @@ import React from 'react';
 import {pathContext} from '../context/path.context';
 import {relateDistanceAcrossLegs} from '../utils/adjustElevationData';
 
-export default function Path() {
+export default function Path({setgettingData}) {
   const [points] = useContext(pointsContext);
-  const {path, setPath, setElevation, elevation} = useContext(pathContext);
+  const {path, setPath, setElevation} = useContext(pathContext);
   const pathPoints = points.permanent;
 
   useEffect(() => {
@@ -18,7 +18,9 @@ export default function Path() {
     }
     const getPathData = async () => {
       try {
+        setgettingData(true);
         const results = await getRoute(pathPoints);
+        setgettingData(false);
         const modifiedPath = results.path.map(coordinates => {
           return {
             latitude: coordinates[1],
@@ -32,11 +34,12 @@ export default function Path() {
         );
         setElevation(modifiedElevation);
       } catch (error) {
+        setgettingData(false);
         console.log(`failed to get path because ${error}`);
       }
     };
     getPathData();
-  }, [pathPoints, setPath, setElevation]);
+  }, [pathPoints, setPath, setElevation, setgettingData]);
 
   return (
     <>
