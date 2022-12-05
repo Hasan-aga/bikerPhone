@@ -185,8 +185,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   card: {
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
+    justifyContent: 'space-between',
     alignItems: 'flex-start',
     backgroundColor: '#f7f7f7',
     bottom: 0,

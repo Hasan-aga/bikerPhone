@@ -7,6 +7,7 @@ export default function Chart({styles, data}) {
     <View style={styles.chartContainer}>
       <LineChart
         data={data}
+        width={100}
         adjustToWidth={true}
         areaChart
         hideDataPoints
@@ -17,12 +18,8 @@ export default function Chart({styles, data}) {
         endOpacity={0.3}
         initialSpacing={0}
         spacing={30}
-        thickness={5}
-        hideRules
-        hideYAxisText
+        thickness={2}
         yAxisColor="#0BA5A4"
-        showVerticalLines
-        verticalLinesColor="rgba(14,164,164,0.5)"
         xAxisColor="#0BA5A4"
         color="#0BA5A4"
       />

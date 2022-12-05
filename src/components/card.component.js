@@ -46,7 +46,7 @@ export default function Card({styles, toggleCard}) {
             iconStyle={styles.icon}>
             <Text style={styles.cardText}>Clear All</Text>
           </IconButton>
-          {/* <Chart styles={styles} data={elevation} /> */}
+          <Chart styles={styles} data={elevation} />
         </View>
       ) : (
         <>
