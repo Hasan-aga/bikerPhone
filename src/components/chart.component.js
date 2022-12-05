@@ -1,27 +1,52 @@
 import React from 'react';
-import {View} from 'react-native';
-import {LineChart} from 'react-native-gifted-charts';
+import {Dimensions, View} from 'react-native';
+import {LineChart} from 'react-native-chart-kit';
 
 export default function Chart({styles, data}) {
   return (
     <View style={styles.chartContainer}>
       <LineChart
-        data={data}
-        width={100}
-        adjustToWidth={true}
-        areaChart
-        hideDataPoints
-        isAnimated
-        animationDuration={1200}
-        startFillColor="#0BA5A4"
-        startOpacity={1}
-        endOpacity={0.3}
-        initialSpacing={0}
-        spacing={30}
-        thickness={2}
-        yAxisColor="#0BA5A4"
-        xAxisColor="#0BA5A4"
-        color="#0BA5A4"
+        data={{
+          labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+          datasets: [
+            {
+              data: [
+                Math.random() * 100,
+                Math.random() * 100,
+                Math.random() * 100,
+                Math.random() * 100,
+                Math.random() * 100,
+                Math.random() * 100,
+              ],
+            },
+          ],
+        }}
+        width={Dimensions.get('window').width} // from react-native
+        height={220}
+        yAxisLabel="$"
+        yAxisSuffix="k"
+        yAxisInterval={1} // optional, defaults to 1
+        chartConfig={{
+          backgroundColor: '#e26a00',
+          backgroundGradientFrom: '#fb8c00',
+          backgroundGradientTo: '#ffa726',
+          decimalPlaces: 2, // optional, defaults to 2dp
+          color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+          labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+          style: {
+            borderRadius: 16,
+          },
+          propsForDots: {
+            r: '6',
+            strokeWidth: '2',
+            stroke: '#ffa726',
+          },
+        }}
+        bezier
+        style={{
+          marginVertical: 8,
+          borderRadius: 16,
+        }}
       />
     </View>
   );
