@@ -1,26 +1,15 @@
 import React from 'react';
 import {Dimensions, View} from 'react-native';
 import {LineChart} from 'react-native-chart-kit';
+import {useModifiedElevation} from '../hooks/useModifiedElevation.hook';
 
-export default function Chart({styles, data}) {
+export default function Chart({styles}) {
+  const data = useModifiedElevation();
+  console.log('data', data);
   return (
     <View style={styles.chartContainer}>
       <LineChart
-        data={{
-          labels: ['January', 'February', 'March', 'April', 'May', 'June'],
-          datasets: [
-            {
-              data: [
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-              ],
-            },
-          ],
-        }}
+        data={data}
         width={Dimensions.get('window').width} // from react-native
         height={220}
         yAxisLabel="$"

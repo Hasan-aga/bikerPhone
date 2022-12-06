@@ -26,15 +26,17 @@ export const relateDistanceAcrossLegs = (
 
 interface ElevationDataset {
   labels: number[];
-  datasets: {
-    data: number[];
-  };
+  datasets: [
+    {
+      data: number[];
+    },
+  ];
 }
 /** Returns elvation/distance data in the form {labels:[], datasets:{data:[]}} */
 export const getElevationDataset = (legs: Leg[]): ElevationDataset => {
   const elevation_range: ElevationDataset = {
     labels: [],
-    datasets: {data: []},
+    datasets: [{data: []}],
   };
 
   legs.forEach((leg, index) => {
@@ -44,7 +46,7 @@ export const getElevationDataset = (legs: Leg[]): ElevationDataset => {
     leg.elevation_range.forEach(elevation => {
       const distance = elevation[0] + increment;
       elevation_range.labels.push(distance);
-      elevation_range.datasets.data.push(elevation[1]);
+      elevation_range.datasets[0].data.push(elevation[1]);
     });
   });
   return elevation_range;
