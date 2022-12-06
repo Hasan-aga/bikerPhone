@@ -18,6 +18,7 @@ export default function Path({setgettingData}) {
     }
     const getPathData = async () => {
       try {
+        console.log('calling api');
         setgettingData(true);
         const results = await getRoute(pathPoints);
         setgettingData(false);

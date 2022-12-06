@@ -9,6 +9,7 @@ import {useModifiedElevation} from '../hooks/useModifiedElevation.hook';
 export default function Card({styles, toggleCard}) {
   const [points, setPoints] = useContext(pointsContext);
   const {path, setPath} = useContext(pathContext);
+  console.log('caaard');
 
   function addPoint() {
     toggleCard();
