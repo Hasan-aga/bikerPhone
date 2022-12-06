@@ -3,8 +3,8 @@ import {Leg} from './routeTypes';
 /** Returns elvation/distance data in the form  [{label:.. , value:..}] */
 export const relateDistanceAcrossLegs = (
   legs: Leg[],
-): {label: number; value: number}[] => {
-  const elevation_range: {label: number; value: number}[] = [];
+): {x: number; y: number}[] => {
+  const elevation_range: {x: number; y: number}[] = [];
 
   legs.forEach((leg, index) => {
     //  each elevation_range is array of [distance, elevation]
@@ -16,7 +16,7 @@ export const relateDistanceAcrossLegs = (
     const increment = lastElevationRange ? lastElevationRange[0] : 0;
     const fixedElevationRange = leg.elevation_range.map(elevation => {
       const distance = elevation[0] + increment;
-      return {label: distance, value: elevation[1]};
+      return {x: distance, y: elevation[1]};
     });
 
     elevation_range.push(...fixedElevationRange);

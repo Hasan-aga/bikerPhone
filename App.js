@@ -200,6 +200,10 @@ const styles = StyleSheet.create({
   verticalContainer: {
     alignItems: 'flex-start',
   },
+  chart: {
+    height: 200,
+    width: 200,
+  },
   horizontalScroll: {
     backgroundColor: 'red',
   },
