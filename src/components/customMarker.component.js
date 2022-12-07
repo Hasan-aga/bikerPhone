@@ -11,8 +11,6 @@ export default function CustomMarker({coordinate, title, description, styles}) {
     );
   }
 
-  console.log(title, 'marker at', coordinate);
-
   return (
     <View>
       <Marker

@@ -6,9 +6,10 @@
  * @flow strict-local
  */
 
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
   ActivityIndicator,
+  Appearance,
   StyleSheet,
   Text,
   TextInput,
@@ -24,18 +25,40 @@ import TopUi from './src/components/topUi.component';
 import {pathContext, PathProvider} from './src/context/path.context';
 import {PointProvider} from './src/context/points.context';
 import useToggle from './src/hooks/toggle.hook';
+import useStorage from './src/hooks/useStorage.hook';
 import {darkMap, lightMap} from './src/utils/map.theme';
 
 const App = () => {
+  const colorScheme = Appearance.getColorScheme();
+  const isDark = colorScheme === 'light' ? 'false' : 'true';
   const [coords, setcoords] = React.useState({
     latitude: 52.3727598,
     longitude: 4.8936041,
   });
-  const [darkTheme, toggleTheme] = useToggle(false);
+  const [darkTheme, toggleTheme] = useToggle(isDark);
   const [cardVisible, toggleCard] = useToggle(false);
   const [gettingData, setgettingData] = useState(false);
   const [hightlightPoint, sethightlightPoint] = useState();
   const styles = getStyles(darkTheme);
+  const {getObject} = useStorage();
+
+  useEffect(() => {
+    async function getStoredLocation() {
+      try {
+        const location = await getObject('@coords');
+        console.log('location:::', location);
+        if (!location || !location.latitude || !location.longitude) {
+          return;
+        }
+        setcoords(location);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    getStoredLocation();
+  }, []);
+
   return (
     <View style={styles.home}>
       <PointProvider>
@@ -223,6 +246,8 @@ function getStyles(isDark) {
       marginRight: 'auto',
       marginBottom: 100,
       width: '50%',
+      borderColor: softColor,
+      borderWidth: 1,
     },
     busyText: {
       fontSize: 15,

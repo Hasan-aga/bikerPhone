@@ -9,6 +9,7 @@ import React from 'react';
 import Geolocation from 'react-native-geolocation-service';
 import TouchIcon from './touchIcon.component';
 import IconButton from './iconButton.component';
+import useStorage from '../hooks/useStorage.hook';
 
 // Function to get permission for location
 const requestLocationPermission = async () => {
@@ -39,6 +40,7 @@ const requestLocationPermission = async () => {
 export default function LocationButton({styles, setCoords}) {
   const [location, setLocation] = React.useState(false);
   const [isBusy, setisBusy] = React.useState(false);
+  const {storeObject} = useStorage();
 
   // function to check permissions and get Location
   const getLocation = () => {
@@ -57,6 +59,7 @@ export default function LocationButton({styles, setCoords}) {
               longitude: position.coords.longitude,
             };
             setCoords(coords);
+            storeObject('@coords', coords);
           },
           error => {
             // See error code charts below.
