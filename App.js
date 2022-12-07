@@ -34,7 +34,7 @@ const App = () => {
   const [cardVisible, toggleCard] = useToggle(false);
   const [gettingData, setgettingData] = useState(false);
   const [hightlightPoint, sethightlightPoint] = useState();
-
+  const styles = getStyles(darkTheme);
   return (
     <View style={styles.home}>
       <PointProvider>
@@ -75,170 +75,175 @@ const App = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  home: {
-    flex: 1,
-    position: 'relative',
-  },
-  mapcontainer: {
-    flex: 1, //the container will fill the whole screen.
-  },
-  map: {
-    flex: 1,
-  },
-  ui: {
-    flexDirection: 'row',
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    position: 'absolute',
-    top: 10,
-  },
-  bar: {
-    flex: 0.9,
-    backgroundColor: '#f7f7f7',
-    color: '#555',
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    borderRadius: 5000,
-    padding: 1,
-    elevation: 100,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  input: {
-    flex: 1,
-    color: '#555',
-    marginLeft: 10,
-    marginRight: 5,
-    borderRightWidth: 1,
-    borderColor: '#999',
-  },
-  icon: {
-    color: '#555',
-    paddingLeft: 5,
-    paddingRight: 5,
-  },
-  yellowIcon: {
-    color: '#E9C46A',
-  },
+function getStyles(isDark) {
+  const primaryColor = isDark ? 'black' : '#f7f7f7';
+  const styles = {
+    home: {
+      flex: 1,
+      position: 'relative',
+    },
+    mapcontainer: {
+      flex: 1, //the container will fill the whole screen.
+    },
+    map: {
+      flex: 1,
+    },
+    ui: {
+      flexDirection: 'row',
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      position: 'absolute',
+      top: 10,
+    },
+    bar: {
+      flex: 0.9,
+      backgroundColor: primaryColor,
+      color: '#555',
+      height: 40,
+      margin: 12,
+      borderWidth: 1,
+      borderRadius: 5000,
+      padding: 1,
+      elevation: 100,
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    input: {
+      flex: 1,
+      color: '#555',
+      marginLeft: 10,
+      marginRight: 5,
+      borderRightWidth: 1,
+      borderColor: '#999',
+    },
+    icon: {
+      color: '#555',
+      paddingLeft: 5,
+      paddingRight: 5,
+    },
+    yellowIcon: {
+      color: '#E9C46A',
+    },
 
-  circleButton: {
-    backgroundColor: '#fff',
-    height: 40,
-    width: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 1,
-    borderRadius: 100,
-    borderWidth: 1,
-    marginRight: 2,
-  },
-  darkCircleButton: {
-    height: 40,
-    width: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 1,
-    borderRadius: 100,
-    borderWidth: 1,
-    backgroundColor: '#264653',
-    marginRight: 2,
-  },
-  textAndIconButton: {
-    flexDirection: 'row',
-    backgroundColor: '#fff',
-    height: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingLeft: 10,
-    paddingRight: 10,
-    margin: 10,
-    borderRadius: 100,
-    borderWidth: 1,
-  },
-  deleteTextAndIconButton: {
-    flexDirection: 'row',
-    backgroundColor: '#F4A261',
-    height: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingLeft: 10,
-    paddingRight: 10,
-    margin: 10,
-    borderRadius: 100,
-    borderWidth: 1,
-  },
-  iconOnlyButton: {
-    height: 40,
-    width: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 1,
-    borderRadius: 100,
-  },
+    circleButton: {
+      backgroundColor: '#fff',
+      height: 40,
+      width: 40,
+      justifyContent: 'center',
+      alignItems: 'center',
+      padding: 1,
+      borderRadius: 100,
+      borderWidth: 1,
+      marginRight: 2,
+    },
+    darkCircleButton: {
+      height: 40,
+      width: 40,
+      justifyContent: 'center',
+      alignItems: 'center',
+      padding: 1,
+      borderRadius: 100,
+      borderWidth: 1,
+      backgroundColor: '#264653',
+      marginRight: 2,
+    },
+    textAndIconButton: {
+      flexDirection: 'row',
+      backgroundColor: '#fff',
+      height: 40,
+      justifyContent: 'center',
+      alignItems: 'center',
+      paddingLeft: 10,
+      paddingRight: 10,
+      margin: 10,
+      borderRadius: 100,
+      borderWidth: 1,
+    },
+    deleteTextAndIconButton: {
+      flexDirection: 'row',
+      backgroundColor: '#F4A261',
+      height: 40,
+      justifyContent: 'center',
+      alignItems: 'center',
+      paddingLeft: 10,
+      paddingRight: 10,
+      margin: 10,
+      borderRadius: 100,
+      borderWidth: 1,
+    },
+    iconOnlyButton: {
+      height: 40,
+      width: 40,
+      justifyContent: 'center',
+      alignItems: 'center',
+      padding: 1,
+      borderRadius: 100,
+    },
 
-  callout: {
-    flexDirection: 'row',
-    backgroundColor: '#f7f7f7',
-    padding: 10,
-    borderWidth: 1,
-    borderRadius: 100,
-    color: '#222',
-    margin: 1,
-  },
-  calloutText: {
-    alignSelf: 'center',
-  },
-  bottomUi: {
-    position: 'absolute',
-    bottom: 0,
-    width: '100%',
-  },
-  card: {
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    backgroundColor: '#f7f7f7',
-    bottom: 0,
-    width: '100%',
-    height: '100%',
-    borderRadius: 20,
-  },
-  cardText: {
-    color: '#222',
-  },
-  chartContainer: {flex: 4},
-  verticalContainer: {
-    alignItems: 'flex-end',
-    backgroundColor: '#f7f7f7',
-  },
-  chart: {
-    height: 200,
-    width: 'auto', // width is set to screen.width in component
-    backgroundColor: '#9999',
-    alignSelf: 'center',
-  },
-  horizontalScroll: {
-    backgroundColor: 'red',
-  },
-  busy: {
-    backgroundColor: '#f7f7f7',
-    borderRadius: 100,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 15,
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    marginBottom: 100,
-    width: '50%',
-  },
-  busyText: {
-    fontSize: 15,
-    fontWeight: 'bold',
-    color: '#333',
-  },
-});
+    callout: {
+      flexDirection: 'row',
+      backgroundColor: '#f7f7f7',
+      padding: 10,
+      borderWidth: 1,
+      borderRadius: 100,
+      color: '#222',
+      margin: 1,
+    },
+    calloutText: {
+      alignSelf: 'center',
+    },
+    bottomUi: {
+      position: 'absolute',
+      bottom: 0,
+      width: '100%',
+    },
+    card: {
+      justifyContent: 'space-between',
+      alignItems: 'flex-start',
+      backgroundColor: '#f7f7f7',
+      bottom: 0,
+      width: '100%',
+      height: '100%',
+      borderRadius: 20,
+    },
+    cardText: {
+      color: '#222',
+    },
+    chartContainer: {flex: 4},
+    verticalContainer: {
+      alignItems: 'flex-end',
+      backgroundColor: '#f7f7f7',
+    },
+    chart: {
+      height: 200,
+      width: 'auto', // width is set to screen.width in component
+      backgroundColor: '#9999',
+      alignSelf: 'center',
+    },
+    horizontalScroll: {
+      backgroundColor: 'red',
+    },
+    busy: {
+      backgroundColor: '#f7f7f7',
+      borderRadius: 100,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      padding: 15,
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      marginBottom: 100,
+      width: '50%',
+    },
+    busyText: {
+      fontSize: 15,
+      fontWeight: 'bold',
+      color: '#333',
+    },
+  };
+
+  return styles;
+}
 
 export default App;
