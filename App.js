@@ -24,6 +24,7 @@ import TopUi from './src/components/topUi.component';
 import {pathContext, PathProvider} from './src/context/path.context';
 import {PointProvider} from './src/context/points.context';
 import useToggle from './src/hooks/toggle.hook';
+import {darkMap, lightMap} from './src/utils/map.theme';
 
 const App = () => {
   const [coords, setcoords] = React.useState({
@@ -41,7 +42,6 @@ const App = () => {
         <PathProvider>
           <MapContainer
             coords={coords}
-            useDarkTheme={darkTheme}
             styles={styles}
             cardVisible={cardVisible}
             toggleCard={toggleCard}
@@ -76,7 +76,9 @@ const App = () => {
 };
 
 function getStyles(isDark) {
-  const primaryColor = isDark ? 'black' : '#f7f7f7';
+  const primaryColor = isDark ? '#264653' : '#f7f7f7';
+  const highLightColor = isDark ? '#E9C46A' : '#555';
+  const softColor = isDark ? '#2f2715' : '#999';
   const styles = {
     home: {
       flex: 1,
@@ -88,6 +90,7 @@ function getStyles(isDark) {
     map: {
       flex: 1,
     },
+    mapTheme: isDark ? darkMap : lightMap,
     ui: {
       flexDirection: 'row',
       flex: 1,
@@ -99,7 +102,7 @@ function getStyles(isDark) {
     bar: {
       flex: 0.9,
       backgroundColor: primaryColor,
-      color: '#555',
+      color: highLightColor,
       height: 40,
       margin: 12,
       borderWidth: 1,
@@ -108,26 +111,24 @@ function getStyles(isDark) {
       elevation: 100,
       flexDirection: 'row',
       alignItems: 'center',
+      borderColor: softColor,
     },
     input: {
       flex: 1,
-      color: '#555',
+      color: highLightColor,
       marginLeft: 10,
       marginRight: 5,
       borderRightWidth: 1,
-      borderColor: '#999',
+      borderColor: softColor,
     },
     icon: {
-      color: '#555',
+      color: highLightColor,
       paddingLeft: 5,
       paddingRight: 5,
     },
-    yellowIcon: {
-      color: '#E9C46A',
-    },
 
     circleButton: {
-      backgroundColor: '#fff',
+      backgroundColor: primaryColor,
       height: 40,
       width: 40,
       justifyContent: 'center',
@@ -135,22 +136,13 @@ function getStyles(isDark) {
       padding: 1,
       borderRadius: 100,
       borderWidth: 1,
+      borderColor: softColor,
       marginRight: 2,
     },
-    darkCircleButton: {
-      height: 40,
-      width: 40,
-      justifyContent: 'center',
-      alignItems: 'center',
-      padding: 1,
-      borderRadius: 100,
-      borderWidth: 1,
-      backgroundColor: '#264653',
-      marginRight: 2,
-    },
+
     textAndIconButton: {
       flexDirection: 'row',
-      backgroundColor: '#fff',
+      backgroundColor: primaryColor,
       height: 40,
       justifyContent: 'center',
       alignItems: 'center',
@@ -171,14 +163,13 @@ function getStyles(isDark) {
       margin: 10,
       borderRadius: 100,
       borderWidth: 1,
+      borderColor: highLightColor,
     },
     iconOnlyButton: {
       height: 40,
       width: 40,
       justifyContent: 'center',
       alignItems: 'center',
-      padding: 1,
-      borderRadius: 100,
     },
 
     callout: {
@@ -210,6 +201,7 @@ function getStyles(isDark) {
     cardText: {
       color: '#222',
     },
+
     chartContainer: {flex: 4},
     verticalContainer: {
       alignItems: 'flex-end',
@@ -225,7 +217,7 @@ function getStyles(isDark) {
       backgroundColor: 'red',
     },
     busy: {
-      backgroundColor: '#f7f7f7',
+      backgroundColor: primaryColor,
       borderRadius: 100,
       flexDirection: 'row',
       justifyContent: 'space-between',
@@ -239,7 +231,7 @@ function getStyles(isDark) {
     busyText: {
       fontSize: 15,
       fontWeight: 'bold',
-      color: '#333',
+      color: highLightColor,
     },
   };
 

@@ -17,10 +17,8 @@ export default function TopUi({
       <Input styles={styles} setcoords={setcoords} placeholder="Search..." />
       <LocationButton styles={styles} setCoords={setcoords} />
       <IconButton
-        buttonStyle={
-          useDarkTheme ? styles.darkCircleButton : styles.circleButton
-        }
-        iconStyle={useDarkTheme ? styles.yellowIcon : styles.icon}
+        buttonStyle={styles.circleButton}
+        iconStyle={styles.icon}
         callback={setuseDarkTheme}
         iconName={useDarkTheme ? 'sunny' : 'moon'}
       />

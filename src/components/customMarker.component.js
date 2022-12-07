@@ -4,13 +4,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {View} from 'react-native';
 import CustomCallout from './customCallout.component';
 
-export default function CustomMarker({
-  coordinate,
-  title,
-  description,
-  useDarkTheme,
-  styles,
-}) {
+export default function CustomMarker({coordinate, title, description, styles}) {
   function onPress(input) {
     console.log(
       `marker was pressed at ${input.nativeEvent.coordinate.latitude}`,

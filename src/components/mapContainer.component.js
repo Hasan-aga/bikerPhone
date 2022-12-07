@@ -57,7 +57,7 @@ const MapContainer = ({
           latitudeDelta: 0.15,
           longitudeDelta: 0.15,
         }}
-        customMapStyle={useDarkTheme ? darkMap : lightMap}
+        customMapStyle={styles.mapTheme}
         onPress={onPress}
         showsUserLocation={true}
         showsMyLocationButton={false}
@@ -65,14 +65,12 @@ const MapContainer = ({
         loadingEnabled={true}>
         <CustomMarker
           coordinate={marker.coordinate}
-          useDarkTheme={useDarkTheme}
           styles={styles}
           title="temporary marker"
         />
         {hightlightPoint && (
           <CustomMarker
             coordinate={hightlightPoint.coordinate}
-            useDarkTheme={useDarkTheme}
             styles={styles}
             title="highlight"
           />
@@ -81,7 +79,6 @@ const MapContainer = ({
           <CustomMarker
             key={index}
             coordinate={p.coordinate}
-            useDarkTheme={useDarkTheme}
             styles={styles}
             title="permanent marker"
           />
