@@ -117,6 +117,8 @@ const styles = StyleSheet.create({
   },
   icon: {
     color: '#555',
+    paddingLeft: 5,
+    paddingRight: 5,
   },
   yellowIcon: {
     color: '#E9C46A',

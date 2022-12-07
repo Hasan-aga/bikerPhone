@@ -7,10 +7,10 @@ import {
 } from 'react-native';
 import TouchIcon from './touchIcon.component';
 import React from 'react';
+import IconOrBusy from './IconOrBusy.component';
 
 export default function IconButton({
   buttonStyle,
-  buttonContainer,
   iconStyle,
   isBusy,
   callback,
@@ -24,11 +24,7 @@ export default function IconButton({
       underlayColor="#999">
       <>
         {children}
-        {isBusy ? (
-          <ActivityIndicator />
-        ) : (
-          <TouchIcon style={iconStyle} iconName={iconName} />
-        )}
+        <IconOrBusy isBusy={isBusy} iconStyle={iconStyle} iconName={iconName} />
       </>
     </TouchableHighlight>
   );

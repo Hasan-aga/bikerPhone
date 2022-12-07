@@ -4,23 +4,24 @@ import {getCoordsFromName} from '../utils/getCoordsFromName';
 import TouchIcon from './touchIcon.component';
 import LocationButton from './locationButton.component';
 import IconButton from './iconButton.component';
+import IconOrBusy from './IconOrBusy.component';
 
 export default function Input({styles, setcoords, placeholder = 'Type here'}) {
-  const [query, setQuery] = React.useState('default');
+  const [query, setQuery] = React.useState();
   const [queryForIconButton, setqueryForIconButton] = React.useState('default');
   const [isBusy, setisBusy] = React.useState(false);
 
   function onSubmit(input) {
     setQuery(input.nativeEvent.text);
-    setisBusy(true);
   }
 
   React.useEffect(() => {
     async function runQuery(searchValue) {
       try {
-        if (query === 'default') {
+        if (!query || query.length === 0) {
           return;
         }
+        setisBusy(true);
         const coords = await getCoordsFromName(searchValue);
         if (!coords) {
           throw new Error('no coordinates!');
@@ -28,6 +29,7 @@ export default function Input({styles, setcoords, placeholder = 'Type here'}) {
         setcoords(coords);
         setisBusy(false);
       } catch (error) {
+        setisBusy(false);
         console.error(error);
       }
     }
@@ -46,19 +48,13 @@ export default function Input({styles, setcoords, placeholder = 'Type here'}) {
         placeholderTextColor="#888"
         returnKeyType="search"
       />
-      {/* <LocationButton styles={styles} /> */}
-      {isBusy && query !== 'default' ? (
-        <ActivityIndicator />
-      ) : (
-        <IconButton
-          callback={() => {
-            onSubmit({nativeEvent: {text: queryForIconButton}});
-          }}
-          iconName="search-outline"
-          buttonStyle={styles.iconOnlyButton}
-          iconStyle={styles.icon}
-        />
-      )}
+
+      <IconOrBusy
+        isBusy={isBusy}
+        iconName="search-outline"
+        buttonStyle={styles.iconOnlyButton}
+        iconStyle={styles.icon}
+      />
     </View>
   );
 }

@@ -18,23 +18,17 @@ export default function Chart({styles, sethightlightPoint}) {
   styles.chart.width = width;
   const chart = useRef();
 
-  const testData = [
-    {x: 0, y: 2},
-    {x: 5, y: 2},
-    {x: 146, y: 2},
-    {x: 152, y: 2},
-    {x: 158, y: 2},
-    {x: 173, y: 2},
-    {x: 294, y: 2},
-    {x: 298, y: 2},
-    {x: 303, y: 2},
-    {x: 307, y: 2},
-    {x: 472, y: 2},
-    {x: 482, y: 2},
-    {x: 518, y: 2},
-    {x: 535, y: 2},
-    {x: 541, y: 2},
-  ];
+  const data = {
+    dataSets: [
+      {
+        label: 'Elevation',
+        values: classicElevation,
+        config: {
+          drawCircles: false,
+        },
+      },
+    ],
+  };
 
   function onSelect({nativeEvent}) {
     const data = nativeEvent.data;
@@ -64,13 +58,18 @@ export default function Chart({styles, sethightlightPoint}) {
     <View style={styles.chartContainer}>
       <LineChart
         style={styles.chart}
-        data={{dataSets: [{label: 'Elevation', values: classicElevation}]}}
+        data={data}
         drawGridBackground={false}
         borderColor={processColor('red')}
         borderWidth={1}
         drawBorders={true}
         ref={chart}
         onSelect={onSelect}
+        legend={{enable: false}}
+        chartDescription={{text: ''}}
+        xAxis={{drawGridLines: false}}
+        yAxis={{drawGridLines: false}}
+        dragDecelerationEnabled={false}
       />
     </View>
   );
