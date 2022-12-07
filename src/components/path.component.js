@@ -6,9 +6,8 @@ import React from 'react';
 import {pathContext} from '../context/path.context';
 import {relateDistanceAcrossLegs} from '../utils/adjustElevationData';
 
-export default function Path({setgettingData}) {
+export default function Path({setgettingData, path, setPath, setElevation}) {
   const [points] = useContext(pointsContext);
-  const {path, setPath, setElevation} = useContext(pathContext);
   const pathPoints = points.permanent;
 
   useEffect(() => {

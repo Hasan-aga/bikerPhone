@@ -1,10 +1,12 @@
 import {Leg} from './routeTypes';
 
+export type Elevation = {
+  x: number;
+  y: number;
+}[];
 /** Returns elvation/distance data in the form  [{label:.. , value:..}] */
-export const relateDistanceAcrossLegs = (
-  legs: Leg[],
-): {x: number; y: number}[] => {
-  const elevation_range: {x: number; y: number}[] = [];
+export const relateDistanceAcrossLegs = (legs: Leg[]): Elevation => {
+  const elevation_range: Elevation = [];
 
   legs.forEach((leg, index) => {
     //  each elevation_range is array of [distance, elevation]

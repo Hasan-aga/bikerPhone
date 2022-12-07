@@ -33,6 +33,7 @@ const App = () => {
   const [darkTheme, toggleTheme] = useToggle(false);
   const [cardVisible, toggleCard] = useToggle(false);
   const [gettingData, setgettingData] = useState(false);
+  const [hightlightPoint, sethightlightPoint] = useState();
 
   return (
     <View style={styles.home}>
@@ -45,6 +46,7 @@ const App = () => {
             cardVisible={cardVisible}
             toggleCard={toggleCard}
             setgettingData={setgettingData}
+            hightlightPoint={hightlightPoint}
           />
           <TopUi
             styles={styles}
@@ -53,8 +55,14 @@ const App = () => {
             setuseDarkTheme={toggleTheme}
           />
           <BottomUi styles={styles}>
-            <Test styles={styles} />
-            {cardVisible && <Card styles={styles} toggleCard={toggleCard} />}
+            {/* <Test styles={styles} sethightlightPoint={sethightlightPoint} /> */}
+            {cardVisible && (
+              <Card
+                styles={styles}
+                toggleCard={toggleCard}
+                sethightlightPoint={sethightlightPoint}
+              />
+            )}
             <InfoCard
               isVisible={gettingData}
               styles={styles}
@@ -205,7 +213,9 @@ const styles = StyleSheet.create({
   },
   chart: {
     height: 200,
-    width: '100%',
+    width: 'auto', // width is set to screen.width in component
+    backgroundColor: '#9999',
+    alignSelf: 'center',
   },
   horizontalScroll: {
     backgroundColor: 'red',

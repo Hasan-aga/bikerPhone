@@ -4,9 +4,9 @@ import IconButton from './iconButton.component';
 import {pointsContext} from '../context/points.context';
 import {pathContext} from '../context/path.context';
 import Chart from './chart.component';
-import {useModifiedElevation} from '../hooks/useModifiedElevation.hook';
+import {useElevation} from '../hooks/useElevation.hook';
 
-export default function Test({styles}) {
+export default function Test({styles, sethightlightPoint}) {
   //TODO: remove this component
   console.log('tessst');
   const {height, width} = useWindowDimensions();
@@ -22,7 +22,7 @@ export default function Test({styles}) {
           iconStyle={styles.icon}>
           <Text style={styles.cardText}>Clear All</Text>
         </IconButton>
-        <Chart styles={styles} />
+        <Chart styles={styles} sethightlightPoint={sethightlightPoint} />
       </View>
     </View>
   );

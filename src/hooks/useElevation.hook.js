@@ -5,7 +5,7 @@ import {
   relateDistanceAcrossLegs,
 } from '../utils/adjustElevationData';
 
-export function useModifiedElevation() {
+export function useElevation() {
   const {elevation} = useContext(pathContext);
   if (!elevation) {
     throw new Error('No elevation data!');
