@@ -26,7 +26,8 @@ export default function Card({styles, toggleCard, sethightlightPoint}) {
     setPoints({temporary: points.temporary, permanent: newPoints});
   }
 
-  function removePoints() {
+  function clearAll() {
+    sethightlightPoint();
     toggleCard();
     setPoints({permanent: []});
     setPath();
@@ -42,7 +43,7 @@ export default function Card({styles, toggleCard, sethightlightPoint}) {
         <View style={styles.verticalContainer}>
           <IconButton
             iconName="close-outline"
-            callback={removePoints}
+            callback={clearAll}
             buttonStyle={styles.deleteTextAndIconButton}
             iconStyle={styles.icon}>
             <Text style={styles.cardText}>Clear All</Text>
