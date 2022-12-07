@@ -19,6 +19,7 @@ import Busy from './src/components/busy.component';
 import Card from './src/components/card.component';
 import InfoCard from './src/components/infoCard.component';
 import MapContainer from './src/components/mapContainer.component';
+import Test from './src/components/test.component';
 import TopUi from './src/components/topUi.component';
 import {pathContext, PathProvider} from './src/context/path.context';
 import {PointProvider} from './src/context/points.context';
@@ -52,6 +53,7 @@ const App = () => {
             setuseDarkTheme={toggleTheme}
           />
           <BottomUi styles={styles}>
+            <Test styles={styles} />
             {cardVisible && <Card styles={styles} toggleCard={toggleCard} />}
             <InfoCard
               isVisible={gettingData}
@@ -196,13 +198,14 @@ const styles = StyleSheet.create({
   cardText: {
     color: '#222',
   },
-  chartContainer: {flex: 4, backgroundColor: '#F5FCFF'},
+  chartContainer: {flex: 4},
   verticalContainer: {
-    alignItems: 'flex-start',
+    alignItems: 'flex-end',
+    backgroundColor: '#f7f7f7',
   },
   chart: {
     height: 200,
-    width: 200,
+    width: '100%',
   },
   horizontalScroll: {
     backgroundColor: 'red',

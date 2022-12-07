@@ -1,4 +1,4 @@
-import {ScrollView, Text, View} from 'react-native';
+import {ScrollView, Text, useWindowDimensions, View} from 'react-native';
 import React, {useContext, useState} from 'react';
 import IconButton from './iconButton.component';
 import {pointsContext} from '../context/points.context';
@@ -9,6 +9,8 @@ import {useModifiedElevation} from '../hooks/useModifiedElevation.hook';
 export default function Test({styles}) {
   //TODO: remove this component
   console.log('tessst');
+  const {height, width} = useWindowDimensions();
+  styles.verticalContainer.width = width;
 
   return (
     <View style={styles.card}>
