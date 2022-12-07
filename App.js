@@ -80,6 +80,9 @@ function getStyles(isDark) {
   const highLightColor = isDark ? '#E9C46A' : '#555';
   const softColor = isDark ? '#2f2715' : '#999';
   const styles = {
+    highLightColor,
+    primaryColor,
+    softColor,
     home: {
       flex: 1,
       position: 'relative',
@@ -151,20 +154,9 @@ function getStyles(isDark) {
       margin: 10,
       borderRadius: 100,
       borderWidth: 1,
+      borderColor: softColor,
     },
-    deleteTextAndIconButton: {
-      flexDirection: 'row',
-      backgroundColor: '#F4A261',
-      height: 40,
-      justifyContent: 'center',
-      alignItems: 'center',
-      paddingLeft: 10,
-      paddingRight: 10,
-      margin: 10,
-      borderRadius: 100,
-      borderWidth: 1,
-      borderColor: highLightColor,
-    },
+
     iconOnlyButton: {
       height: 40,
       width: 40,
@@ -191,26 +183,30 @@ function getStyles(isDark) {
     },
     card: {
       justifyContent: 'space-between',
-      alignItems: 'flex-start',
-      backgroundColor: '#f7f7f7',
+      alignItems: 'flex-end',
+      backgroundColor: primaryColor,
       bottom: 0,
       width: '100%',
       height: '100%',
-      borderRadius: 20,
+      borderTopLeftRadius: 20,
+      borderTopRightRadius: 20,
     },
     cardText: {
-      color: '#222',
+      color: highLightColor,
     },
 
     chartContainer: {flex: 4},
     verticalContainer: {
       alignItems: 'flex-end',
-      backgroundColor: '#f7f7f7',
+      backgroundColor: primaryColor,
+      borderTopLeftRadius: 20,
+      borderTopRightRadius: 20,
+      paddingTop: 10,
     },
     chart: {
       height: 200,
       width: 'auto', // width is set to screen.width in component
-      backgroundColor: '#9999',
+      backgroundColor: primaryColor,
       alignSelf: 'center',
     },
     horizontalScroll: {

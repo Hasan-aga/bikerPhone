@@ -24,7 +24,12 @@ export default function Chart({styles, sethightlightPoint}) {
         label: 'Elevation',
         values: classicElevation,
         config: {
+          colors: [processColor(styles.highLightColor)],
+
           drawCircles: false,
+          circleRadius: 1,
+          lineWidth: 3,
+          circleColor: processColor('teal'),
         },
       },
     ],
@@ -35,8 +40,6 @@ export default function Chart({styles, sethightlightPoint}) {
     if (!data) {
       return;
     }
-
-    console.log('data:', data);
 
     const hightlightPoint = {
       coordinate: {
@@ -60,15 +63,19 @@ export default function Chart({styles, sethightlightPoint}) {
         style={styles.chart}
         data={data}
         drawGridBackground={false}
-        borderColor={processColor('red')}
-        borderWidth={1}
-        drawBorders={true}
+        drawBorders={false}
         ref={chart}
         onSelect={onSelect}
         legend={{enable: false}}
         chartDescription={{text: ''}}
-        xAxis={{drawGridLines: false}}
-        yAxis={{drawGridLines: false}}
+        xAxis={{
+          drawGridLines: false,
+          textColor: processColor(styles.highLightColor),
+        }}
+        yAxis={{
+          drawGridLines: false,
+          textColor: processColor('teal'),
+        }}
         dragDecelerationEnabled={false}
       />
     </View>

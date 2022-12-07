@@ -44,7 +44,7 @@ export default function Card({styles, toggleCard, sethightlightPoint}) {
           <IconButton
             iconName="close-outline"
             callback={clearAll}
-            buttonStyle={styles.deleteTextAndIconButton}
+            buttonStyle={styles.textAndIconButton}
             iconStyle={styles.icon}>
             <Text style={styles.cardText}>Clear All</Text>
           </IconButton>
