@@ -18,6 +18,20 @@ export default function Chart({styles, sethightlightPoint}) {
   const {path} = useContext(pathContext);
   const {width} = useWindowDimensions();
   const updatedStyle = {...styles.chart, width};
+  const [dataPoint, setdataPoint] = useState();
+  const [inclinationData, setInclinationData] = useState({
+    start: {distance: null, elevation: null},
+    end: {distance: null, elevation: null},
+    getInclination: function () {
+      if (this.start && this.end) {
+        const dx = Math.abs(this.end.distance - this.start.distance);
+        const dy = Math.abs(this.end.elevation - this.start.elevation);
+        const inclination = (dy / dx) * 100;
+        console.log('inclination', inclination);
+        return inclination;
+      }
+    },
+  });
 
   const [boxDimensions, setBoxDimensions] = useState({
     start: null,
@@ -61,7 +75,6 @@ export default function Chart({styles, sethightlightPoint}) {
 
     event.preventDefault();
     const {nativeEvent} = event;
-    // TODO: save selected point to local state so we use it to calc inclination
     const data = nativeEvent.data;
     if (!data) {
       return;
@@ -69,13 +82,15 @@ export default function Chart({styles, sethightlightPoint}) {
 
     const hightlightPoint = {
       coordinate: {
-        latitude: data.x,
-        longitude: data.y,
+        distance: data.x,
+        elevation: data.y,
       },
     };
 
+    setdataPoint(hightlightPoint.coordinate);
+
     const hightlightPointCoordinates = getCoordinatesFromDistance(
-      hightlightPoint.coordinate.latitude,
+      hightlightPoint.coordinate.distance,
       classicElevation,
       path,
     );
@@ -84,24 +99,22 @@ export default function Chart({styles, sethightlightPoint}) {
   }
 
   function getStartPoint(event) {
-    event.stopPropagation();
-
-    event.preventDefault();
     const {nativeEvent} = event;
     const min = 26;
     const max = 340;
     if (inRange(nativeEvent.locationX, min, max)) {
       setBoxDimensions({...boxDimensions, start: nativeEvent.locationX});
+      setInclinationData({...inclinationData, start: dataPoint});
     }
   }
   function getEndPoint(event) {
-    event.stopPropagation();
-    event.preventDefault();
     const {nativeEvent} = event;
     const min = 26;
     const max = 340;
     if (inRange(nativeEvent.locationX, min, max)) {
       setBoxDimensions({...boxDimensions, end: nativeEvent.locationX});
+      setInclinationData({...inclinationData, end: dataPoint});
+      inclinationData.getInclination();
     }
   }
 
@@ -113,7 +126,8 @@ export default function Chart({styles, sethightlightPoint}) {
       <HighlightChart
         styles={styles}
         width={boxDimensions.getWidth()}
-        startPoint={boxDimensions.start}>
+        startPoint={boxDimensions.start}
+        screenWidth={width}>
         <LineChart
           style={updatedStyle}
           textColor={processColor(styles.highLightColor)}
