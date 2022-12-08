@@ -27,6 +27,7 @@ export default function Chart({styles, sethightlightPoint}) {
       return Math.abs(width) > 10 ? width : null;
     },
   });
+  const [startNewBox, setstartNewBox] = useState(false);
 
   const data = {
     dataSets: [
@@ -57,9 +58,6 @@ export default function Chart({styles, sethightlightPoint}) {
   };
 
   function onSelect(event) {
-    event.stopPropagation();
-
-    event.preventDefault();
     const {nativeEvent} = event;
     // TODO: save selected point to local state so we use it to calc inclination
     const data = nativeEvent.data;
@@ -83,20 +81,26 @@ export default function Chart({styles, sethightlightPoint}) {
     sethightlightPoint(hightlightPointCoordinates);
   }
 
-  function getStartPoint(event) {
-    event.stopPropagation();
+  function clearBox(setBoxDimensions, setstartNewBox, boxDimensions) {
+    setBoxDimensions({start: null, end: null, getWidth: () => 0});
+    setstartNewBox(false);
+    console.log('new box', boxDimensions);
+  }
 
-    event.preventDefault();
+  function getStartPoint(event) {
     const {nativeEvent} = event;
     const min = 26;
     const max = 340;
+
     if (inRange(nativeEvent.locationX, min, max)) {
-      setBoxDimensions({...boxDimensions, start: nativeEvent.locationX});
+      setBoxDimensions({
+        ...boxDimensions,
+        start: nativeEvent.locationX,
+        end: nativeEvent.locationX,
+      });
     }
   }
   function getEndPoint(event) {
-    event.stopPropagation();
-    event.preventDefault();
     const {nativeEvent} = event;
     const min = 26;
     const max = 340;
@@ -107,13 +111,16 @@ export default function Chart({styles, sethightlightPoint}) {
 
   return (
     <View
+      onStartShouldSetResponder={() => true}
+      onMoveShouldSetResponder={() => true}
       style={styles.chartContainer}
-      onTouchStart={getStartPoint}
-      onTouchMove={getEndPoint}>
+      onResponderStart={getStartPoint}
+      onResponderMove={getEndPoint}>
       <HighlightChart
         styles={styles}
         width={boxDimensions.getWidth()}
-        startPoint={boxDimensions.start}>
+        startPoint={boxDimensions.start}
+        screenWidth={width}>
         <LineChart
           style={updatedStyle}
           textColor={processColor(styles.highLightColor)}

@@ -1,9 +1,20 @@
 import {View} from 'react-native';
-export default function HighlightChart({styles, children, startPoint, width}) {
+import React from 'react';
+export default function HighlightChart({
+  styles,
+  children,
+  startPoint,
+  width,
+  screenWidth,
+}) {
   const updatedStyle =
     width > 0
       ? {...styles.highlightChart, width, left: startPoint}
-      : {...styles.highlightChart, width: Math.abs(width), right: startPoint};
+      : {
+          ...styles.highlightChart,
+          width: -width,
+          right: screenWidth - startPoint,
+        };
   return (
     <View>
       {children}
