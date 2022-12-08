@@ -12,9 +12,10 @@ import useGetCoordinates from '../utils/getCoordinatesFromDistance';
 import getCoordinatesFromDistance from '../utils/getCoordinatesFromDistance';
 import inRange from '../utils/inRange';
 import HighlightChart from './highlightChart.component';
+import calculateTotalInclination from '../utils/calculateInclination';
 
 export default function Chart({styles, sethightlightPoint}) {
-  const {classicElevation} = useElevation();
+  const {classicElevation, totalInclination} = useElevation();
   const {path} = useContext(pathContext);
   const {width} = useWindowDimensions();
   const updatedStyle = {...styles.chart, width};
@@ -48,6 +49,31 @@ export default function Chart({styles, sethightlightPoint}) {
         values: classicElevation,
         config: {
           colors: [processColor(styles.highLightColor)],
+          highlightEnabled: true,
+          drawCircles: false,
+          circleRadius: 1,
+          lineWidth: 3,
+          circleColor: processColor('teal'),
+          drawFilled: true,
+          fillGradient: {
+            colors: [
+              processColor(styles.highLightColor),
+              processColor(styles.primaryColor),
+            ],
+            positions: [0, 0.5],
+            angle: 90,
+            orientation: 'TOP_BOTTOM',
+          },
+          fillAlpha: 1000,
+        },
+      },
+      {
+        label: 'Inclination (%)',
+        values: totalInclination.map((p, i) => {
+          return {x: classicElevation[i].x, y: p};
+        }),
+        config: {
+          colors: [processColor(styles.softColor)],
           highlightEnabled: true,
           drawCircles: false,
           circleRadius: 1,

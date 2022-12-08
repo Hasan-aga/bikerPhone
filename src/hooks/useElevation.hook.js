@@ -4,6 +4,7 @@ import {
   getElevationDataset,
   relateDistanceAcrossLegs,
 } from '../utils/adjustElevationData';
+import calculateTotalInclination from '../utils/calculateInclination';
 
 export function useElevation() {
   const {elevation} = useContext(pathContext);
@@ -14,6 +15,9 @@ export function useElevation() {
     return {
       modifiedElevation: getElevationDataset(elevation),
       classicElevation: relateDistanceAcrossLegs(elevation),
+      totalInclination: calculateTotalInclination(
+        relateDistanceAcrossLegs(elevation),
+      ),
     };
   }, [elevation]);
 }
