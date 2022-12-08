@@ -17,8 +17,6 @@ const MapContainer = ({
   setgettingData,
   hightlightPoint,
 }) => {
-  console.log('map rendered at coords = ', coords);
-
   // add temp point to context
   const [points, setPoints] = useContext(pointsContext);
   const {path, setPath, setElevation} = useContext(pathContext);

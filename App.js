@@ -254,6 +254,14 @@ function getStyles(isDark) {
       fontWeight: 'bold',
       color: highLightColor,
     },
+    highlightChart: {
+      backgroundColor: '#03A64A',
+      opacity: 0.3,
+      height: '95%',
+      zIndex: 1000,
+      position: 'absolute',
+      bottom: 10,
+    },
   };
 
   return styles;

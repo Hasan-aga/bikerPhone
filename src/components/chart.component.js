@@ -1,4 +1,4 @@
-import React, {useContext, useRef} from 'react';
+import React, {useContext, useEffect, useRef, useState} from 'react';
 import {
   Dimensions,
   useWindowDimensions,
@@ -10,12 +10,23 @@ import {LineChart} from 'react-native-charts-wrapper';
 import {pathContext} from '../context/path.context';
 import useGetCoordinates from '../utils/getCoordinatesFromDistance';
 import getCoordinatesFromDistance from '../utils/getCoordinatesFromDistance';
+import inRange from '../utils/inRange';
+import HighlightChart from './highlightChart.component';
 
 export default function Chart({styles, sethightlightPoint}) {
   const {classicElevation} = useElevation();
   const {path} = useContext(pathContext);
   const {width} = useWindowDimensions();
-  styles.chart.width = width;
+  const updatedStyle = {...styles.chart, width};
+
+  const [boxDimensions, setBoxDimensions] = useState({
+    start: null,
+    end: null,
+    getWidth: function () {
+      const width = this.end - this.start;
+      return Math.abs(width) > 10 ? width : null;
+    },
+  });
 
   const data = {
     dataSets: [
@@ -45,7 +56,12 @@ export default function Chart({styles, sethightlightPoint}) {
     ],
   };
 
-  function onSelect({nativeEvent}) {
+  function onSelect(event) {
+    event.stopPropagation();
+
+    event.preventDefault();
+    const {nativeEvent} = event;
+    // TODO: save selected point to local state so we use it to calc inclination
     const data = nativeEvent.data;
     if (!data) {
       return;
@@ -67,30 +83,63 @@ export default function Chart({styles, sethightlightPoint}) {
     sethightlightPoint(hightlightPointCoordinates);
   }
 
+  function getStartPoint(event) {
+    event.stopPropagation();
+
+    event.preventDefault();
+    const {nativeEvent} = event;
+    const min = 26;
+    const max = 340;
+    if (inRange(nativeEvent.locationX, min, max)) {
+      setBoxDimensions({...boxDimensions, start: nativeEvent.locationX});
+    }
+  }
+  function getEndPoint(event) {
+    event.stopPropagation();
+    event.preventDefault();
+    const {nativeEvent} = event;
+    const min = 26;
+    const max = 340;
+    if (inRange(nativeEvent.locationX, min, max)) {
+      setBoxDimensions({...boxDimensions, end: nativeEvent.locationX});
+    }
+  }
+
   return (
-    <View style={styles.chartContainer}>
-      <LineChart
-        style={styles.chart}
-        textColor={processColor(styles.highLightColor)}
-        data={data}
-        drawGridBackground={false}
-        drawBorders={false}
-        onSelect={onSelect}
-        legend={{enable: false}}
-        chartDescription={{text: 'Distance (meters)'}}
-        xAxis={{
-          drawGridLines: false,
-          textColor: processColor(styles.highLightColor),
-        }}
-        yAxis={{
-          drawGridLines: false,
-        }}
-        dragDecelerationEnabled={false}
-        scaleXEnabled={false}
-        scaleYEnabled={false}
-        pinchZoom={false}
-        onChange={e => console.log()}
-      />
+    <View
+      style={styles.chartContainer}
+      onTouchStart={getStartPoint}
+      onTouchMove={getEndPoint}>
+      <HighlightChart
+        styles={styles}
+        width={boxDimensions.getWidth()}
+        startPoint={boxDimensions.start}>
+        <LineChart
+          style={updatedStyle}
+          textColor={processColor(styles.highLightColor)}
+          data={data}
+          drawGridBackground={false}
+          drawBorders={false}
+          onSelect={onSelect}
+          legend={{enable: false}}
+          chartDescription={{text: 'Distance (meters)'}}
+          xAxis={{
+            drawGridLines: false,
+            textColor: processColor(styles.highLightColor),
+          }}
+          yAxis={{
+            drawGridLines: false,
+          }}
+          scaleXEnabled={false}
+          scaleYEnabled={false}
+          pinchZoom={false}
+          marker={{
+            enabled: true,
+            markerColor: processColor('#444'),
+            textColor: processColor('#f7f7f7'),
+          }}
+        />
+      </HighlightChart>
     </View>
   );
 }
