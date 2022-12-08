@@ -26,8 +26,7 @@ export default function Chart({styles, sethightlightPoint}) {
       if (this.start && this.end) {
         const dx = Math.abs(this.end.distance - this.start.distance);
         const dy = Math.abs(this.end.elevation - this.start.elevation);
-        const inclination = (dy / dx) * 100;
-        console.log('inclination', inclination);
+        const inclination = ((dy / dx) * 100).toFixed(1);
         return inclination;
       }
     },
@@ -101,7 +100,7 @@ export default function Chart({styles, sethightlightPoint}) {
   function getStartPoint(event) {
     const {nativeEvent} = event;
     const min = 26;
-    const max = 340;
+    const max = width - 15;
     if (inRange(nativeEvent.locationX, min, max)) {
       setBoxDimensions({...boxDimensions, start: nativeEvent.locationX});
       setInclinationData({...inclinationData, start: dataPoint});
@@ -118,16 +117,29 @@ export default function Chart({styles, sethightlightPoint}) {
     }
   }
 
+  function clearBox() {
+    setBoxDimensions({
+      start: null,
+      end: null,
+      getWidth: function () {
+        const width = this.end - this.start;
+        return Math.abs(width) > 10 ? width : null;
+      },
+    });
+  }
+
   return (
     <View
       style={styles.chartContainer}
       onTouchStart={getStartPoint}
-      onTouchMove={getEndPoint}>
+      onTouchMove={getEndPoint}
+      onTouchEnd={clearBox}>
       <HighlightChart
         styles={styles}
         width={boxDimensions.getWidth()}
         startPoint={boxDimensions.start}
-        screenWidth={width}>
+        screenWidth={width}
+        text={inclinationData.getInclination()}>
         <LineChart
           style={updatedStyle}
           textColor={processColor(styles.highLightColor)}
@@ -148,7 +160,7 @@ export default function Chart({styles, sethightlightPoint}) {
           scaleYEnabled={false}
           pinchZoom={false}
           marker={{
-            enabled: true,
+            enabled: false,
             markerColor: processColor('#444'),
             textColor: processColor('#f7f7f7'),
           }}

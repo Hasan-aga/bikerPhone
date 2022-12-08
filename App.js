@@ -255,12 +255,22 @@ function getStyles(isDark) {
       color: highLightColor,
     },
     highlightChart: {
-      backgroundColor: '#03A64A',
-      opacity: 0.3,
+      backgroundColor: 'rgba(3, 166, 74, 0.3)',
       height: '95%',
       zIndex: 1000,
       position: 'absolute',
       bottom: 10,
+      justifyContent: 'center',
+    },
+    highlightText: {
+      opacity: 1,
+      backgroundColor: highLightColor,
+      alignSelf: 'center',
+      width: 110,
+      borderRadius: 100,
+      borderWidth: 1,
+      paddingLeft: 5,
+      fontSize: 13,
     },
   };
 

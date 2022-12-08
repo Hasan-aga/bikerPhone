@@ -1,23 +1,28 @@
-import {View} from 'react-native';
+import {Text, View} from 'react-native';
 export default function HighlightChart({
   styles,
   children,
   startPoint,
   width,
   screenWidth,
+  text,
 }) {
   const updatedStyle =
-    width >= 0
+    width > 0
       ? {...styles.highlightChart, width, left: startPoint}
       : {
           ...styles.highlightChart,
-          width: Math.abs(screenWidth - width),
-          right: startPoint,
+          width: -width,
+          right: screenWidth - startPoint,
         };
   return (
     <View>
       {children}
-      <View style={updatedStyle} />
+      {startPoint && (
+        <View style={updatedStyle}>
+          <Text style={styles.highlightText}>Inclination: {text}%</Text>
+        </View>
+      )}
     </View>
   );
 }
