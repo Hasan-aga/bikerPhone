@@ -257,10 +257,11 @@ function getStyles(isDark) {
     highlightChart: {
       backgroundColor: '#03A64A',
       opacity: 0.3,
-      height: '95%',
+      height: '85%',
+      width: 500,
       zIndex: 1000,
       position: 'absolute',
-      bottom: 10,
+      bottom: 15,
     },
   };
 

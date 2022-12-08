@@ -112,7 +112,6 @@ export default function Chart({styles, sethightlightPoint}) {
   return (
     <View
       onStartShouldSetResponder={() => true}
-      onMoveShouldSetResponder={() => true}
       style={styles.chartContainer}
       onResponderStart={getStartPoint}
       onResponderMove={getEndPoint}>
