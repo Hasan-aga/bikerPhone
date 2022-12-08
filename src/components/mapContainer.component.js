@@ -62,7 +62,7 @@ const MapContainer = ({
         showsUserLocation={true}
         showsMyLocationButton={false}
         rotateEnabled={false}
-        loadingEnabled={true}>
+        loadingEnabled={false}>
         <CustomMarker
           coordinate={marker.coordinate}
           styles={styles}
