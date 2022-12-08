@@ -100,7 +100,7 @@ const App = () => {
 
 function getStyles(isDark) {
   const primaryColor = isDark ? '#264653' : '#f7f7f7';
-  const highLightColor = isDark ? '#E9C46A' : '#555';
+  const highLightColor = isDark ? '#F9C46A' : '#555';
   const softColor = isDark ? '#2f2715' : '#999';
   const styles = {
     highLightColor,
