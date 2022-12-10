@@ -61,7 +61,7 @@ export default function Chart({styles, sethightlightPoint}) {
         },
       },
       {
-        label: 'Inclination (%)',
+        label: 'Slope (%)',
         values: totalInclination.map((p, i) => {
           return {x: classicElevation[i].x, y: p};
         }),
@@ -175,10 +175,23 @@ export default function Chart({styles, sethightlightPoint}) {
           chartDescription={{text: 'Distance (meters)'}}
           xAxis={{
             drawGridLines: false,
+            drawAxisLine: false,
+            textSize: 11,
             textColor: processColor(styles.highLightColor),
           }}
           yAxis={{
-            drawGridLines: false,
+            left: {
+              drawGridLines: true,
+              drawAxisLine: true,
+              drawLabels: true,
+              textColor: processColor(styles.highLightColor),
+            },
+            right: {
+              drawGridLines: false,
+              drawAxisLine: true,
+              drawLabels: true,
+              textColor: processColor(styles.highLightColor),
+            },
           }}
           scaleXEnabled={false}
           scaleYEnabled={false}
