@@ -12,12 +12,26 @@ import useGetCoordinates from '../utils/getCoordinatesFromDistance';
 import getCoordinatesFromDistance from '../utils/getCoordinatesFromDistance';
 import inRange from '../utils/inRange';
 import HighlightChart from './highlightChart.component';
+import calculateTotalInclination from '../utils/calculateInclination';
 
 export default function Chart({styles, sethightlightPoint}) {
-  const {classicElevation} = useElevation();
+  const {classicElevation, totalInclination} = useElevation();
   const {path} = useContext(pathContext);
   const {width} = useWindowDimensions();
   const updatedStyle = {...styles.chart, width};
+  const [dataPoint, setdataPoint] = useState();
+  const [inclinationData, setInclinationData] = useState({
+    start: {distance: null, elevation: null},
+    end: {distance: null, elevation: null},
+    getInclination: function () {
+      if (this.start && this.end) {
+        const dx = Math.abs(this.end.distance - this.start.distance);
+        const dy = Math.abs(this.end.elevation - this.start.elevation);
+        const inclination = ((dy / dx) * 100).toFixed(1);
+        return inclination;
+      }
+    },
+  });
 
   const [boxDimensions, setBoxDimensions] = useState({
     start: null,
@@ -54,12 +68,36 @@ export default function Chart({styles, sethightlightPoint}) {
           fillAlpha: 1000,
         },
       },
+      {
+        label: 'Inclination (%)',
+        values: totalInclination.map((p, i) => {
+          return {x: classicElevation[i].x, y: p};
+        }),
+        config: {
+          colors: [processColor(styles.softColor)],
+          highlightEnabled: true,
+          drawCircles: false,
+          circleRadius: 1,
+          lineWidth: 3,
+          circleColor: processColor('teal'),
+          drawFilled: true,
+          fillGradient: {
+            colors: [
+              processColor(styles.highLightColor),
+              processColor(styles.primaryColor),
+            ],
+            positions: [0, 0.5],
+            angle: 90,
+            orientation: 'TOP_BOTTOM',
+          },
+          fillAlpha: 1000,
+        },
+      },
     ],
   };
 
   function onSelect(event) {
     const {nativeEvent} = event;
-    // TODO: save selected point to local state so we use it to calc inclination
     const data = nativeEvent.data;
     if (!data) {
       return;
@@ -67,13 +105,15 @@ export default function Chart({styles, sethightlightPoint}) {
 
     const hightlightPoint = {
       coordinate: {
-        latitude: data.x,
-        longitude: data.y,
+        distance: data.x,
+        elevation: data.y,
       },
     };
 
+    setdataPoint(hightlightPoint.coordinate);
+
     const hightlightPointCoordinates = getCoordinatesFromDistance(
-      hightlightPoint.coordinate.latitude,
+      hightlightPoint.coordinate.distance,
       classicElevation,
       path,
     );
@@ -81,21 +121,13 @@ export default function Chart({styles, sethightlightPoint}) {
     sethightlightPoint(hightlightPointCoordinates);
   }
 
-  function clearBox() {
-    setBoxDimensions({...boxDimensions, start: null, end: null});
-  }
-
   function getStartPoint(event) {
     const {nativeEvent} = event;
     const min = 26;
-    const max = 340;
-
+    const max = width - 15;
     if (inRange(nativeEvent.locationX, min, max)) {
-      setBoxDimensions({
-        ...boxDimensions,
-        start: nativeEvent.locationX,
-        end: nativeEvent.locationX,
-      });
+      setBoxDimensions({...boxDimensions, start: nativeEvent.locationX});
+      setInclinationData({...inclinationData, start: dataPoint});
     }
   }
   function getEndPoint(event) {
@@ -104,7 +136,20 @@ export default function Chart({styles, sethightlightPoint}) {
     const max = 340;
     if (inRange(nativeEvent.locationX, min, max)) {
       setBoxDimensions({...boxDimensions, end: nativeEvent.locationX});
+      setInclinationData({...inclinationData, end: dataPoint});
+      inclinationData.getInclination();
     }
+  }
+
+  function clearBox() {
+    setBoxDimensions({
+      start: null,
+      end: null,
+      getWidth: function () {
+        const width = this.end - this.start;
+        return Math.abs(width) > 10 ? width : null;
+      },
+    });
   }
 
   return (
@@ -118,7 +163,8 @@ export default function Chart({styles, sethightlightPoint}) {
         styles={styles}
         width={boxDimensions.getWidth()}
         startPoint={boxDimensions.start}
-        screenWidth={width}>
+        screenWidth={width}
+        text={inclinationData.getInclination()}>
         <LineChart
           style={updatedStyle}
           textColor={processColor(styles.highLightColor)}
@@ -139,7 +185,7 @@ export default function Chart({styles, sethightlightPoint}) {
           scaleYEnabled={false}
           pinchZoom={false}
           marker={{
-            enabled: true,
+            enabled: false,
             markerColor: processColor('#444'),
             textColor: processColor('#f7f7f7'),
           }}
