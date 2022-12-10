@@ -102,8 +102,9 @@ export default function Chart({styles, sethightlightPoint}) {
   function getMovingPoint(event) {
     const {nativeEvent} = event;
     console.log(nativeEvent);
-    const min = 26;
-    const max = 335;
+    // the chart is a portion of the view
+    const min = width * 0.07;
+    const max = width * 0.93;
     const highlightWidth = max - min;
 
     if (inRange(nativeEvent.pageX, min, max)) {
@@ -112,8 +113,9 @@ export default function Chart({styles, sethightlightPoint}) {
       inclinationData.getInclination();
       // getting elevationData
       // translate the tap location to data index
+      const highlightStart = nativeEvent.pageX - min;
       const dataIndex = translateIndex(
-        nativeEvent.pageX,
+        highlightStart,
         highlightWidth,
         classicElevation.length,
       );
