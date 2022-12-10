@@ -13,6 +13,7 @@ import getCoordinatesFromDistance from '../utils/getCoordinatesFromDistance';
 import inRange from '../utils/inRange';
 import HighlightChart from './highlightChart.component';
 import calculateTotalInclination from '../utils/calculateInclination';
+import translateIndex from '../utils/translateIndex';
 
 export default function Chart({styles, sethightlightPoint}) {
   const {classicElevation, totalInclination} = useElevation();
@@ -41,7 +42,6 @@ export default function Chart({styles, sethightlightPoint}) {
       return Math.abs(width) > 10 ? width : null;
     },
   });
-  const [startNewBox, setstartNewBox] = useState(false);
 
   const data = {
     dataSets: [
@@ -96,30 +96,30 @@ export default function Chart({styles, sethightlightPoint}) {
     ],
   };
 
-  function onSelect(event) {
-    const {nativeEvent} = event;
-    const data = nativeEvent.data;
-    if (!data) {
-      return;
-    }
+  // function onSelect(event) {
+  //   const {nativeEvent} = event;
+  //   const data = nativeEvent.data;
+  //   if (!data) {
+  //     return;
+  //   }
 
-    const hightlightPoint = {
-      coordinate: {
-        distance: data.x,
-        elevation: data.y,
-      },
-    };
+  //   const hightlightPoint = {
+  //     coordinate: {
+  //       distance: data.x,
+  //       elevation: data.y,
+  //     },
+  //   };
 
-    setdataPoint(hightlightPoint.coordinate);
+  //   setdataPoint(hightlightPoint.coordinate);
 
-    const hightlightPointCoordinates = getCoordinatesFromDistance(
-      hightlightPoint.coordinate.distance,
-      classicElevation,
-      path,
-    );
+  //   const hightlightPointCoordinates = getCoordinatesFromDistance(
+  //     hightlightPoint.coordinate.distance,
+  //     classicElevation,
+  //     path,
+  //   );
 
-    sethightlightPoint(hightlightPointCoordinates);
-  }
+  //   sethightlightPoint(hightlightPointCoordinates);
+  // }
 
   function getStartPoint(event) {
     const {nativeEvent} = event;
@@ -130,14 +130,41 @@ export default function Chart({styles, sethightlightPoint}) {
       setInclinationData({...inclinationData, start: dataPoint});
     }
   }
-  function getEndPoint(event) {
+  function getMovingPoint(event) {
     const {nativeEvent} = event;
     const min = 26;
     const max = 340;
+    const highlightWidth = max - min;
+
     if (inRange(nativeEvent.locationX, min, max)) {
       setBoxDimensions({...boxDimensions, end: nativeEvent.locationX});
       setInclinationData({...inclinationData, end: dataPoint});
       inclinationData.getInclination();
+      // getting elevationData
+      // translate the tap location to data index
+      const dataIndex = translateIndex(
+        nativeEvent.locationX,
+        highlightWidth,
+        classicElevation.length,
+      );
+
+      const hightlightPoint = {
+        coordinate: {
+          distance: classicElevation[dataIndex].x,
+          elevation: classicElevation[dataIndex].y,
+        },
+      };
+
+      setdataPoint(hightlightPoint.coordinate);
+
+      const hightlightPointCoordinates = getCoordinatesFromDistance(
+        hightlightPoint.coordinate.distance,
+        classicElevation,
+        path,
+      );
+
+      sethightlightPoint(hightlightPointCoordinates);
+      console.log(hightlightPoint);
     }
   }
 
@@ -157,7 +184,7 @@ export default function Chart({styles, sethightlightPoint}) {
       onStartShouldSetResponder={() => true}
       style={styles.chartContainer}
       onResponderStart={getStartPoint}
-      onResponderMove={getEndPoint}
+      onResponderMove={getMovingPoint}
       onResponderEnd={clearBox}>
       <HighlightChart
         styles={styles}
@@ -171,7 +198,6 @@ export default function Chart({styles, sethightlightPoint}) {
           data={data}
           drawGridBackground={false}
           drawBorders={false}
-          onSelect={onSelect}
           legend={{enable: false}}
           chartDescription={{text: 'Distance (meters)'}}
           xAxis={{
