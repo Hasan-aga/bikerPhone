@@ -81,10 +81,8 @@ export default function Chart({styles, sethightlightPoint}) {
     sethightlightPoint(hightlightPointCoordinates);
   }
 
-  function clearBox(setBoxDimensions, setstartNewBox, boxDimensions) {
-    setBoxDimensions({start: null, end: null, getWidth: () => 0});
-    setstartNewBox(false);
-    console.log('new box', boxDimensions);
+  function clearBox() {
+    setBoxDimensions({...boxDimensions, start: null, end: null});
   }
 
   function getStartPoint(event) {
@@ -114,7 +112,8 @@ export default function Chart({styles, sethightlightPoint}) {
       onStartShouldSetResponder={() => true}
       style={styles.chartContainer}
       onResponderStart={getStartPoint}
-      onResponderMove={getEndPoint}>
+      onResponderMove={getEndPoint}
+      onResponderEnd={clearBox}>
       <HighlightChart
         styles={styles}
         width={boxDimensions.getWidth()}
