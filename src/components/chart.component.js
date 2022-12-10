@@ -31,9 +31,7 @@ export default function Chart({styles, sethightlightPoint}) {
     start: null,
     end: null,
     getWidth: function () {
-      // console.log(`start:${this.start}, end:${this.end}`);
-      const width = this.end - this.start;
-      return width;
+      return this.end - this.start;
     },
   });
 
