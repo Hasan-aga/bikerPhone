@@ -22,7 +22,7 @@ export default function Chart({styles, sethightlightPoint}) {
         const dx = Math.abs(this.end.distance - this.start.distance);
         const dy = Math.abs(this.end.elevation - this.start.elevation);
         const inclination = ((dy / dx) * 100).toFixed(1);
-        return inclination;
+        return isNaN(inclination) ? '' : inclination;
       }
     },
   });
@@ -93,7 +93,11 @@ export default function Chart({styles, sethightlightPoint}) {
     const min = 26;
     const max = width - 15;
     if (inRange(nativeEvent.pageX, min, max)) {
-      setBoxDimensions({...boxDimensions, start: nativeEvent.pageX});
+      setBoxDimensions({
+        ...boxDimensions,
+        start: nativeEvent.pageX,
+        end: nativeEvent.pageX,
+      });
       setInclinationData({...inclinationData, start: dataPoint});
     }
   }
@@ -167,7 +171,7 @@ export default function Chart({styles, sethightlightPoint}) {
           data={data}
           drawGridBackground={false}
           drawBorders={false}
-          legend={{enable: false}}
+          legend={{enabled: true}}
           chartDescription={{text: 'Distance (meters)'}}
           xAxis={{
             drawGridLines: false,
