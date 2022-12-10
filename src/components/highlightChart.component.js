@@ -16,6 +16,8 @@ export default function HighlightChart({
           width: -width,
           right: screenWidth - startPoint,
         };
+
+  console.log(updatedStyle);
   return (
     <View>
       {children}

@@ -1,18 +1,11 @@
 import React, {useContext, useEffect, useRef, useState} from 'react';
-import {
-  Dimensions,
-  useWindowDimensions,
-  View,
-  processColor,
-} from 'react-native';
+import {useWindowDimensions, View, processColor} from 'react-native';
 import {useElevation} from '../hooks/useElevation.hook';
 import {LineChart} from 'react-native-charts-wrapper';
 import {pathContext} from '../context/path.context';
-import useGetCoordinates from '../utils/getCoordinatesFromDistance';
 import getCoordinatesFromDistance from '../utils/getCoordinatesFromDistance';
 import inRange from '../utils/inRange';
 import HighlightChart from './highlightChart.component';
-import calculateTotalInclination from '../utils/calculateInclination';
 import translateIndex from '../utils/translateIndex';
 
 export default function Chart({styles, sethightlightPoint}) {
@@ -38,8 +31,9 @@ export default function Chart({styles, sethightlightPoint}) {
     start: null,
     end: null,
     getWidth: function () {
+      // console.log(`start:${this.start}, end:${this.end}`);
       const width = this.end - this.start;
-      return Math.abs(width) > 10 ? width : null;
+      return width;
     },
   });
 
@@ -96,54 +90,30 @@ export default function Chart({styles, sethightlightPoint}) {
     ],
   };
 
-  // function onSelect(event) {
-  //   const {nativeEvent} = event;
-  //   const data = nativeEvent.data;
-  //   if (!data) {
-  //     return;
-  //   }
-
-  //   const hightlightPoint = {
-  //     coordinate: {
-  //       distance: data.x,
-  //       elevation: data.y,
-  //     },
-  //   };
-
-  //   setdataPoint(hightlightPoint.coordinate);
-
-  //   const hightlightPointCoordinates = getCoordinatesFromDistance(
-  //     hightlightPoint.coordinate.distance,
-  //     classicElevation,
-  //     path,
-  //   );
-
-  //   sethightlightPoint(hightlightPointCoordinates);
-  // }
-
   function getStartPoint(event) {
     const {nativeEvent} = event;
     const min = 26;
     const max = width - 15;
-    if (inRange(nativeEvent.locationX, min, max)) {
-      setBoxDimensions({...boxDimensions, start: nativeEvent.locationX});
+    if (inRange(nativeEvent.pageX, min, max)) {
+      setBoxDimensions({...boxDimensions, start: nativeEvent.pageX});
       setInclinationData({...inclinationData, start: dataPoint});
     }
   }
   function getMovingPoint(event) {
     const {nativeEvent} = event;
+    console.log(nativeEvent);
     const min = 26;
-    const max = 340;
+    const max = 335;
     const highlightWidth = max - min;
 
-    if (inRange(nativeEvent.locationX, min, max)) {
-      setBoxDimensions({...boxDimensions, end: nativeEvent.locationX});
+    if (inRange(nativeEvent.pageX, min, max)) {
+      setBoxDimensions({...boxDimensions, end: nativeEvent.pageX});
       setInclinationData({...inclinationData, end: dataPoint});
       inclinationData.getInclination();
       // getting elevationData
       // translate the tap location to data index
       const dataIndex = translateIndex(
-        nativeEvent.locationX,
+        nativeEvent.pageX,
         highlightWidth,
         classicElevation.length,
       );
@@ -164,7 +134,6 @@ export default function Chart({styles, sethightlightPoint}) {
       );
 
       sethightlightPoint(hightlightPointCoordinates);
-      console.log(hightlightPoint);
     }
   }
 
@@ -185,7 +154,7 @@ export default function Chart({styles, sethightlightPoint}) {
       style={styles.chartContainer}
       onResponderStart={getStartPoint}
       onResponderMove={getMovingPoint}
-      onResponderEnd={clearBox}>
+      onResponderRelease={clearBox}>
       <HighlightChart
         styles={styles}
         width={boxDimensions.getWidth()}
