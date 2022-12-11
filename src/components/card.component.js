@@ -5,10 +5,12 @@ import {pointsContext} from '../context/points.context';
 import {pathContext} from '../context/path.context';
 import Chart from './chart.component';
 import {useElevation} from '../hooks/useElevation.hook';
+import ToggleArrow from './ToggleArrow.component';
 
 export default function Card({
   styles,
   toggleCard,
+  cardVisible,
   sethightlightPoint,
   gettingData,
 }) {
@@ -45,6 +47,11 @@ export default function Card({
     <View style={styles.card}>
       {path ? (
         <View style={styles.verticalContainer}>
+          <ToggleArrow
+            toggle={toggleCard}
+            cardVisible={cardVisible}
+            styles={styles}
+          />
           <IconButton
             iconName="close-outline"
             callback={clearAll}

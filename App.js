@@ -83,6 +83,7 @@ const App = () => {
                 toggleCard={toggleCard}
                 sethightlightPoint={sethightlightPoint}
                 gettingData={gettingData}
+                cardVisible={cardVisible}
               />
             }
             <InfoCard

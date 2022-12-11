@@ -120,6 +120,9 @@ export function getStyles(isDark) {
     cardText: {
       color: highLightColor,
     },
+    cardArrow: {
+      alignSelf: 'center',
+    },
 
     chartContainer: {flex: 4},
     verticalContainer: {
