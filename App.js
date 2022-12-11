@@ -20,9 +20,8 @@ import Busy from './src/components/busy.component';
 import Card from './src/components/card.component';
 import InfoCard from './src/components/infoCard.component';
 import MapContainer from './src/components/mapContainer.component';
-import Test from './src/components/test.component';
 import TopUi from './src/components/topUi.component';
-import {pathContext, PathProvider} from './src/context/path.context';
+import {PathProvider} from './src/context/path.context';
 import {PointProvider} from './src/context/points.context';
 import useToggle from './src/hooks/toggle.hook';
 import useStorage from './src/hooks/useStorage.hook';
@@ -37,7 +36,6 @@ const App = () => {
   });
   const [darkTheme, toggleTheme] = useToggle(isDark);
   const [cardVisible, toggleCard] = useToggle(true);
-  console.log(cardVisible);
   const [gettingData, setgettingData] = useState(false);
   const [hightlightPoint, sethightlightPoint] = useState();
   const styles = getStyles(darkTheme);
@@ -77,7 +75,6 @@ const App = () => {
             setuseDarkTheme={toggleTheme}
           />
           <BottomUi styles={styles} cardVisible={cardVisible}>
-            {/* <Test styles={styles} sethightlightPoint={sethightlightPoint} /> */}
             {
               <Card
                 styles={styles}
