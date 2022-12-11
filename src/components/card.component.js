@@ -18,7 +18,6 @@ export default function Card({
   const {path, setPath} = useContext(pathContext);
   console.log('getting data=', gettingData);
   function addPoint() {
-    toggleCard();
     const desiredPoint = points.temporary;
     const newPermanentPoint = {
       ...desiredPoint,

@@ -1,6 +1,6 @@
 import IconOrBusy from './IconOrBusy.component';
 import React, {useEffect, useState} from 'react';
-import {Animated, Easing} from 'react-native';
+import {Animated} from 'react-native';
 export default function ToggleArrow({styles, toggle, cardVisible}) {
   const [rotation] = useState(new Animated.Value(0));
   const rotateInterpolation = rotation.interpolate({
@@ -19,8 +19,16 @@ export default function ToggleArrow({styles, toggle, cardVisible}) {
     ...styles.cardArrow,
     transform: [{rotate: rotateInterpolation}],
   };
+
+  function toggleCard(e) {
+    e.stopPropagation();
+    toggle();
+  }
   return (
-    <Animated.View style={updatedStyle} onTouchEnd={() => toggle()}>
+    <Animated.View
+      style={updatedStyle}
+      onStartShouldSetResponder={event => true}
+      onResponderStart={toggleCard}>
       <IconOrBusy iconName="chevron-down-outline" iconStyle={styles.icon} />
     </Animated.View>
   );

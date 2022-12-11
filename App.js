@@ -36,7 +36,8 @@ const App = () => {
     longitude: 4.8936041,
   });
   const [darkTheme, toggleTheme] = useToggle(isDark);
-  const [cardVisible, toggleCard] = useToggle(false);
+  const [cardVisible, toggleCard] = useToggle(true);
+  console.log(cardVisible);
   const [gettingData, setgettingData] = useState(false);
   const [hightlightPoint, sethightlightPoint] = useState();
   const styles = getStyles(darkTheme);
@@ -75,7 +76,7 @@ const App = () => {
             useDarkTheme={darkTheme}
             setuseDarkTheme={toggleTheme}
           />
-          <BottomUi styles={styles}>
+          <BottomUi styles={styles} cardVisible={cardVisible}>
             {/* <Test styles={styles} sethightlightPoint={sethightlightPoint} /> */}
             {
               <Card
