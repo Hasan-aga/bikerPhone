@@ -66,8 +66,6 @@ const App = () => {
           <MapContainer
             coords={coords}
             styles={styles}
-            cardVisible={cardVisible}
-            toggleCard={toggleCard}
             setgettingData={setgettingData}
             hightlightPoint={hightlightPoint}
           />
@@ -79,13 +77,14 @@ const App = () => {
           />
           <BottomUi styles={styles}>
             {/* <Test styles={styles} sethightlightPoint={sethightlightPoint} /> */}
-            {cardVisible && (
+            {
               <Card
                 styles={styles}
                 toggleCard={toggleCard}
                 sethightlightPoint={sethightlightPoint}
+                gettingData={gettingData}
               />
-            )}
+            }
             <InfoCard
               isVisible={gettingData}
               styles={styles}
@@ -203,6 +202,7 @@ function getStyles(isDark) {
       position: 'absolute',
       bottom: 0,
       width: '100%',
+      alignItems: 'center',
     },
     card: {
       justifyContent: 'space-between',
@@ -234,6 +234,12 @@ function getStyles(isDark) {
     },
     horizontalScroll: {
       backgroundColor: 'red',
+    },
+    infoCard: {
+      flexDirection: 'row',
+      position: 'absolute',
+      bottom: 1,
+      width: '100%',
     },
     busy: {
       backgroundColor: primaryColor,

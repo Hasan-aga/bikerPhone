@@ -12,14 +12,11 @@ const MapContainer = ({
   coords,
   useDarkTheme,
   styles,
-  cardVisible,
-  toggleCard,
   setgettingData,
   hightlightPoint,
 }) => {
   // add temp point to context
   const [points, setPoints] = useContext(pointsContext);
-  const {path, setPath, setElevation} = useContext(pathContext);
 
   const [marker, setMarker] = useState({
     coordinate: {
@@ -30,10 +27,7 @@ const MapContainer = ({
 
   function onPress(input) {
     Keyboard.dismiss();
-    toggleCard();
-    if (cardVisible) {
-      return;
-    }
+
     setMarker({coordinate: {...input.nativeEvent.coordinate}});
     addTemporaryPoint({
       type: 'temporary',
@@ -81,14 +75,7 @@ const MapContainer = ({
             title="permanent marker"
           />
         ))}
-        {points && (
-          <Path
-            setgettingData={setgettingData}
-            path={path}
-            setPath={setPath}
-            setElevation={setElevation}
-          />
-        )}
+        {points && <Path setgettingData={setgettingData} />}
       </MapView>
     </View>
   );

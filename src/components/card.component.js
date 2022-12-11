@@ -6,13 +6,17 @@ import {pathContext} from '../context/path.context';
 import Chart from './chart.component';
 import {useElevation} from '../hooks/useElevation.hook';
 
-export default function Card({styles, toggleCard, sethightlightPoint}) {
+export default function Card({
+  styles,
+  toggleCard,
+  sethightlightPoint,
+  gettingData,
+}) {
   const [points, setPoints] = useContext(pointsContext);
   const {path, setPath} = useContext(pathContext);
-
+  console.log('getting data=', gettingData);
   function addPoint() {
     toggleCard();
-    console.log('adding new point, total points= ', points.permanent.length);
     const desiredPoint = points.temporary;
     const newPermanentPoint = {
       ...desiredPoint,
@@ -48,7 +52,9 @@ export default function Card({styles, toggleCard, sethightlightPoint}) {
             iconStyle={styles.icon}>
             <Text style={styles.cardText}>Clear All</Text>
           </IconButton>
-          <Chart styles={styles} sethightlightPoint={sethightlightPoint} />
+          {!gettingData && (
+            <Chart styles={styles} sethightlightPoint={sethightlightPoint} />
+          )}
         </View>
       ) : (
         <>
