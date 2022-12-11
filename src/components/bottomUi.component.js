@@ -1,4 +1,9 @@
-import {View, Animated} from 'react-native';
+import {
+  View,
+  Animated,
+  TouchableWithoutFeedback,
+  TouchableHighlight,
+} from 'react-native';
 import React, {useEffect, useState} from 'react';
 export default function BottomUi({styles, cardVisible, children}) {
   const [yPosition] = useState(new Animated.Value(10));
@@ -13,9 +18,7 @@ export default function BottomUi({styles, cardVisible, children}) {
 
   return (
     <Animated.View style={{transform: [{translateY: yPosition}]}}>
-      <View onStartShouldSetResponder={event => true} style={styles.bottomUi}>
-        {children}
-      </View>
+      <View style={styles.bottomUi}>{children}</View>
     </Animated.View>
   );
 }
