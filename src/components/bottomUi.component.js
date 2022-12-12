@@ -4,9 +4,9 @@ import {
   TouchableWithoutFeedback,
   TouchableHighlight,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 export default function BottomUi({styles, cardVisible, children}) {
-  const [yPosition] = useState(new Animated.Value(10));
+  const yPosition = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     Animated.timing(yPosition, {
@@ -16,9 +16,13 @@ export default function BottomUi({styles, cardVisible, children}) {
     }).start();
   }, [cardVisible]);
 
+  const AnimatedView = Animated.createAnimatedComponent(
+    TouchableWithoutFeedback,
+  );
+
   return (
-    <Animated.View style={{transform: [{translateY: yPosition}]}}>
+    <AnimatedView style={{transform: [{translateY: yPosition}]}}>
       <View style={styles.bottomUi}>{children}</View>
-    </Animated.View>
+    </AnimatedView>
   );
 }
