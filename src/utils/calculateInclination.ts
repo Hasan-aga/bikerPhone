@@ -35,7 +35,7 @@ export function calculateInclinationChatGpt(path: PathData): number[] {
   }
 
   // Return the array of slopes
-  console.log(slopes);
+  // console.log(slopes);
 
   return slopes;
 }
@@ -69,7 +69,7 @@ export default function calculateTotalInclination(
 
   const result = calculateInclinations(inclinationPoints, data.length);
 
-  console.log('Results: ', result);
+  // console.log('Results: ', result);
   return result;
 }
 
@@ -109,7 +109,7 @@ function calculateInclinations(
     return currentInclination;
   });
 
-  console.log('map', map1);
+  // console.log('map', map1);
 
   return result;
 }

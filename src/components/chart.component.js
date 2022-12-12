@@ -90,6 +90,7 @@ export default function Chart({styles, sethightlightPoint}) {
 
   function getStartPoint(event) {
     const {nativeEvent} = event;
+    console.log('started:', nativeEvent);
     const min = 26;
     const max = width - 15;
     if (inRange(nativeEvent.pageX, min, max)) {
@@ -103,7 +104,7 @@ export default function Chart({styles, sethightlightPoint}) {
   }
   function getMovingPoint(event) {
     const {nativeEvent} = event;
-    console.log(nativeEvent);
+    console.log('we are moving', nativeEvent);
     // the chart is a portion of the view
     const min = width * 0.07;
     const max = width * 0.93;
@@ -142,6 +143,7 @@ export default function Chart({styles, sethightlightPoint}) {
   }
 
   function clearBox() {
+    console.log('released.');
     setBoxDimensions({
       start: null,
       end: null,
@@ -155,6 +157,7 @@ export default function Chart({styles, sethightlightPoint}) {
   return (
     <View
       onStartShouldSetResponder={() => true}
+      onMoveShouldSetResponder={() => true}
       style={styles.chartContainer}
       onResponderStart={getStartPoint}
       onResponderMove={getMovingPoint}

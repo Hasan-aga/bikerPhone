@@ -5,6 +5,7 @@ import {
   TouchableHighlight,
 } from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
+import {AnimatedView} from './animatedView.component';
 export default function BottomUi({styles, cardVisible, children}) {
   const yPosition = useRef(new Animated.Value(0)).current;
 
@@ -16,13 +17,11 @@ export default function BottomUi({styles, cardVisible, children}) {
     }).start();
   }, [cardVisible]);
 
-  const AnimatedView = Animated.createAnimatedComponent(
-    TouchableWithoutFeedback,
-  );
+  const Test = Animated.createAnimatedComponent(AnimatedView);
 
   return (
-    <AnimatedView style={{transform: [{translateY: yPosition}]}}>
+    <Test style={{transform: [{translateY: yPosition}]}}>
       <View style={styles.bottomUi}>{children}</View>
-    </AnimatedView>
+    </Test>
   );
 }
