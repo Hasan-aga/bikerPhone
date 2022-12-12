@@ -52,18 +52,18 @@ export default function Card({
           />
           <View style={{flexDirection: 'row'}}>
             <IconButton
-              iconName="add-outline"
-              callback={addPoint}
-              buttonStyle={styles.textAndIconButton}
-              iconStyle={styles.icon}>
-              <Text style={styles.cardText}>{getButtonText()}</Text>
-            </IconButton>
-            <IconButton
               iconName="close-outline"
               callback={clearAll}
               buttonStyle={styles.textAndIconButton}
               iconStyle={styles.icon}>
               <Text style={styles.cardText}>Clear All</Text>
+            </IconButton>
+            <IconButton
+              iconName="add-outline"
+              callback={addPoint}
+              buttonStyle={styles.textAndIconButton}
+              iconStyle={styles.icon}>
+              <Text style={styles.cardText}>{getButtonText()}</Text>
             </IconButton>
           </View>
           {!gettingData && (
