@@ -7,7 +7,6 @@ import {pointsContext} from '../context/points.context';
 import Path from './path.component';
 import {pathContext} from '../context/path.context';
 import useGetCoordinates from '../utils/getCoordinatesFromDistance';
-import {useElevation} from '../hooks/useElevation.hook';
 const MapContainer = ({
   coords,
   useDarkTheme,

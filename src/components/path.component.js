@@ -8,7 +8,7 @@ import {relateDistanceAcrossLegs} from '../utils/adjustElevationData';
 
 export default function Path({setgettingData}) {
   const [points] = useContext(pointsContext);
-  const {path, setPath, setElevation} = useContext(pathContext);
+  const {paths, setPaths, setElevation} = useContext(pathContext);
 
   const pathPoints = points.permanent;
 
@@ -22,13 +22,16 @@ export default function Path({setgettingData}) {
         console.log('calling api');
         setgettingData(true);
         const results = await getRoute(pathPoints);
-        const modifiedPath = results.path.map(coordinates => {
-          return {
-            latitude: coordinates[1],
-            longitude: coordinates[0],
-          };
+        console.log('results', results);
+        const modifiedPaths = results.paths.map(path => {
+          return path.map(coordinates => {
+            return {
+              latitude: coordinates[1],
+              longitude: coordinates[0],
+            };
+          });
         });
-        setPath(modifiedPath);
+        setPaths(modifiedPaths);
         setElevation(results.elevationData);
         setgettingData(false);
       } catch (error) {
@@ -37,19 +40,21 @@ export default function Path({setgettingData}) {
       }
     };
     getPathData();
-  }, [pathPoints, setPath, setElevation, setgettingData]);
+  }, [pathPoints, setPaths, setElevation, setgettingData]);
 
   return (
     <>
-      {path && (
-        <Polyline
-          coordinates={path}
-          strokeWidth={2}
-          strokeColor="red"
-          tappable={true}
-          onPress={() => console.log('path was pressed.')}
-        />
-      )}
+      {paths &&
+        paths.map((path, index) => (
+          <Polyline
+            key={index}
+            coordinates={path}
+            strokeWidth={2}
+            strokeColor="red"
+            tappable={true}
+            onPress={() => console.log('path was pressed.')}
+          />
+        ))}
     </>
   );
 }

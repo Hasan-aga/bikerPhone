@@ -4,7 +4,6 @@ import IconButton from './iconButton.component';
 import {pointsContext} from '../context/points.context';
 import {pathContext} from '../context/path.context';
 import Chart from './chart.component';
-import {useElevation} from '../hooks/useElevation.hook';
 import ToggleArrow from './ToggleArrow.component';
 
 export default function Card({
@@ -51,13 +50,22 @@ export default function Card({
             cardVisible={cardVisible}
             styles={styles}
           />
-          <IconButton
-            iconName="close-outline"
-            callback={clearAll}
-            buttonStyle={styles.textAndIconButton}
-            iconStyle={styles.icon}>
-            <Text style={styles.cardText}>Clear All</Text>
-          </IconButton>
+          <View style={{flexDirection: 'row'}}>
+            <IconButton
+              iconName="add-outline"
+              callback={addPoint}
+              buttonStyle={styles.textAndIconButton}
+              iconStyle={styles.icon}>
+              <Text style={styles.cardText}>{getButtonText()}</Text>
+            </IconButton>
+            <IconButton
+              iconName="close-outline"
+              callback={clearAll}
+              buttonStyle={styles.textAndIconButton}
+              iconStyle={styles.icon}>
+              <Text style={styles.cardText}>Clear All</Text>
+            </IconButton>
+          </View>
           {!gettingData && (
             <Chart styles={styles} sethightlightPoint={sethightlightPoint} />
           )}

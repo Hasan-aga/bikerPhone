@@ -13,7 +13,7 @@ export function useElevation() {
   }
   return useMemo(() => {
     return {
-      modifiedElevation: getElevationDataset(elevation),
+      // modifiedElevation: getElevationDataset(elevation),
       classicElevation: relateDistanceAcrossLegs(elevation),
       totalInclination: calculateTotalInclination(
         relateDistanceAcrossLegs(elevation),

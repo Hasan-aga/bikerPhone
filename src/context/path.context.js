@@ -4,15 +4,16 @@ export const pathContext = createContext({
   setPath: () => {},
   elevation: [],
   setElevation: () => {},
+  legs: [],
 });
 
 export const PathProvider = ({children}) => {
-  const [path, setPath] = useState();
+  const [paths, setPaths] = useState();
   const [elevation, setElevation] = useState();
 
   const value = {
-    path,
-    setPath,
+    paths,
+    setPaths,
     elevation,
     setElevation,
   };
