@@ -9,7 +9,7 @@ import HighlightChart from './highlightChart.component';
 import translateIndex from '../utils/translateIndex';
 
 export default function Chart({styles, sethightlightPoint}) {
-  const {classicElevation, totalInclination} = useElevation();
+  const {classicElevation} = useElevation();
   const {path} = useContext(pathContext);
   const {width} = useWindowDimensions();
   const updatedStyle = {...styles.chart, width};
@@ -42,31 +42,6 @@ export default function Chart({styles, sethightlightPoint}) {
         values: classicElevation,
         config: {
           colors: [processColor(styles.highLightColor)],
-          highlightEnabled: true,
-          drawCircles: false,
-          circleRadius: 1,
-          lineWidth: 3,
-          circleColor: processColor('teal'),
-          drawFilled: true,
-          fillGradient: {
-            colors: [
-              processColor(styles.highLightColor),
-              processColor(styles.primaryColor),
-            ],
-            positions: [0, 0.5],
-            angle: 90,
-            orientation: 'TOP_BOTTOM',
-          },
-          fillAlpha: 1000,
-        },
-      },
-      {
-        label: 'Slope (%)',
-        values: totalInclination.map((p, i) => {
-          return {x: classicElevation[i].x, y: p};
-        }),
-        config: {
-          colors: [processColor(styles.softColor)],
           highlightEnabled: true,
           drawCircles: false,
           circleRadius: 1,
