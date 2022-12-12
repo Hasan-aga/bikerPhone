@@ -14,7 +14,7 @@ export default function Card({
   gettingData,
 }) {
   const [points, setPoints] = useContext(pointsContext);
-  const {path, setPath} = useContext(pathContext);
+  const {paths, setPaths} = useContext(pathContext);
   console.log('getting data=', gettingData);
   function addPoint() {
     const desiredPoint = points.temporary;
@@ -34,7 +34,7 @@ export default function Card({
     sethightlightPoint();
     !cardVisible && toggleCard();
     setPoints({permanent: []});
-    setPath();
+    setPaths();
   }
 
   function getButtonText() {
@@ -43,7 +43,7 @@ export default function Card({
 
   return (
     <View style={styles.card}>
-      {path ? (
+      {paths ? (
         <View style={styles.verticalContainer}>
           <ToggleArrow
             toggle={toggleCard}

@@ -13,15 +13,6 @@ export const relateDistanceAcrossLegs = (legs: Leg[]): Elevation => {
     // distance of current leg must be incremented by last distance of prev leg
     // if index === 0 -> increment = 0
     //  if index > 0 -> increment = prevLeg.elevation_range.at(-1)[0]
-    index > 0
-      ? console.log(
-          'legs[index-1].elevation_range: ',
-          legs[index - 1].elevation_range[
-            legs[index - 1].elevation_range.length - 1
-          ],
-        )
-      : '';
-
     const lastElevationRange =
       index > 0
         ? legs[index - 1].elevation_range[
@@ -29,6 +20,8 @@ export const relateDistanceAcrossLegs = (legs: Leg[]): Elevation => {
           ]
         : undefined;
     const increment = lastElevationRange ? lastElevationRange[0] : 0;
+    console.log(increment);
+
     const fixedElevationRange = leg.elevation_range.map(elevation => {
       const distance = elevation[0] + increment;
       return {x: distance, y: elevation[1]};
