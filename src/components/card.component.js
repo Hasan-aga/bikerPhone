@@ -33,7 +33,7 @@ export default function Card({
 
   function clearAll() {
     sethightlightPoint();
-    toggleCard();
+    !cardVisible && toggleCard();
     setPoints({permanent: []});
     setPath();
   }
