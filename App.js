@@ -6,16 +6,8 @@
  * @flow strict-local
  */
 
-import React, {useContext, useEffect, useState} from 'react';
-import {
-  ActivityIndicator,
-  Appearance,
-  StatusBar,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {Appearance, StatusBar, View} from 'react-native';
 import BottomUi from './src/components/bottomUi.component';
 import Busy from './src/components/busy.component';
 import Card from './src/components/card.component';
