@@ -86,9 +86,9 @@ export default function Chart({styles, sethightlightPoint}) {
     const highlightWidth = max - min;
 
     if (inRange(nativeEvent.pageX, min, max)) {
-      // setBoxDimensions({...boxDimensions, end: nativeEvent.pageX});
-      // setInclinationData({...inclinationData, end: dataPoint});
-      // inclinationData.getInclination();
+      setBoxDimensions({...boxDimensions, end: nativeEvent.pageX});
+      setInclinationData({...inclinationData, end: dataPoint});
+      inclinationData.getInclination();
       // getting elevationData
       // translate the tap location to data index
       const highlightStart = nativeEvent.pageX - min;
@@ -108,7 +108,7 @@ export default function Chart({styles, sethightlightPoint}) {
 
       console.log('we are in highlight point', hightlightPoint);
 
-      // setdataPoint(hightlightPoint.coordinate);
+      setdataPoint(hightlightPoint.coordinate);
 
       const hightlightPointCoordinates = getCoordinatesFromDistance(
         hightlightPoint.coordinate.distance,
