@@ -184,6 +184,10 @@ export function getStyles(isDark) {
       paddingLeft: 5,
       fontSize: 13,
     },
+    statusbar: {
+      backgroundColor: primaryColor,
+      color: highLightColor,
+    },
   };
 
   return styles;

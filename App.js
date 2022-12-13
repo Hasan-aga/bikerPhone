@@ -10,6 +10,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import {
   ActivityIndicator,
   Appearance,
+  StatusBar,
   StyleSheet,
   Text,
   TextInput,
@@ -38,6 +39,7 @@ const App = () => {
   const [cardVisible, toggleCard] = useToggle(true);
   const [gettingData, setgettingData] = useState(false);
   const [hightlightPoint, sethightlightPoint] = useState();
+
   const styles = getStyles(darkTheme);
   const {getObject} = useStorage();
 
@@ -60,6 +62,11 @@ const App = () => {
 
   return (
     <View style={styles.home}>
+      <StatusBar
+        animated={true}
+        backgroundColor={styles.statusbar.backgroundColor}
+        barStyle={darkTheme ? 'light-content' : 'dark-content'}
+      />
       <PointProvider>
         <PathProvider>
           <MapContainer
