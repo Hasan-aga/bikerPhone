@@ -22,7 +22,6 @@ export default function Path({setgettingData}) {
         console.log('calling api');
         setgettingData(true);
         const results = await getRoute(pathPoints);
-        console.log('results', results);
         const modifiedPaths = results.paths.map(path => {
           return path.map(coordinates => {
             return {

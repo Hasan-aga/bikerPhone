@@ -10,7 +10,7 @@ import translateIndex from '../utils/translateIndex';
 
 export default function Chart({styles, sethightlightPoint}) {
   const {classicElevation} = useElevation();
-  const {path} = useContext(pathContext);
+  const {paths} = useContext(pathContext);
   const {width} = useWindowDimensions();
   const updatedStyle = {...styles.chart, width};
   const [dataPoint, setdataPoint] = useState();
@@ -86,12 +86,13 @@ export default function Chart({styles, sethightlightPoint}) {
     const highlightWidth = max - min;
 
     if (inRange(nativeEvent.pageX, min, max)) {
-      setBoxDimensions({...boxDimensions, end: nativeEvent.pageX});
-      setInclinationData({...inclinationData, end: dataPoint});
-      inclinationData.getInclination();
+      // setBoxDimensions({...boxDimensions, end: nativeEvent.pageX});
+      // setInclinationData({...inclinationData, end: dataPoint});
+      // inclinationData.getInclination();
       // getting elevationData
       // translate the tap location to data index
       const highlightStart = nativeEvent.pageX - min;
+
       const dataIndex = translateIndex(
         highlightStart,
         highlightWidth,
@@ -105,12 +106,14 @@ export default function Chart({styles, sethightlightPoint}) {
         },
       };
 
-      setdataPoint(hightlightPoint.coordinate);
+      console.log('we are in highlight point', hightlightPoint);
+
+      // setdataPoint(hightlightPoint.coordinate);
 
       const hightlightPointCoordinates = getCoordinatesFromDistance(
         hightlightPoint.coordinate.distance,
         classicElevation,
-        path,
+        paths,
       );
 
       sethightlightPoint(hightlightPointCoordinates);
