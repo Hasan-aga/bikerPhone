@@ -11,4 +11,4 @@ Refer to [react-native's documentation](https://reactnative.dev/docs/getting-sta
 
 ### Project structure
 
-I have create an `src` directory and used it throughout the development.
+I have created an `src` directory and used it throughout the development.
